@@ -1,0 +1,132 @@
+<section class="tc-catalog-admin">
+  <div class="tc-catalog-admin__header">
+    <h1>Users</h1>
+    <button type="button" class="btn btn--primary" (click)="startCreateManager()">CREATE MANAGER ACCOUNT</button>
+  </div>
+
+  @if (creatingManager()) {
+    <form class="tc-catalog-form" [formGroup]="managerForm" (ngSubmit)="saveManager()">
+      <label class="tc-field">
+        <span>Full Name</span>
+        <input type="text" formControlName="fullName" />
+      </label>
+      <label class="tc-field">
+        <span>Email</span>
+        <input type="email" formControlName="email" />
+      </label>
+      <label class="tc-field">
+        <span>Password</span>
+        <input type="password" formControlName="password" />
+      </label>
+
+      <div class="tc-catalog-form__actions">
+        <button type="submit" class="btn btn--primary" [disabled]="savingManager()">
+          {{ savingManager() ? 'CREATING…' : 'CREATE MANAGER' }}
+        </button>
+        <button type="button" class="btn btn--outline" (click)="cancelCreateManager()">CANCEL</button>
+      </div>
+    </form>
+  }
+
+  @if (stats(); as stats) {
+    <div class="tc-overview__grid tc-users-admin__stats">
+      <div class="tc-stat-card">
+        <span class="tc-stat-card__label">Total Users</span>
+        <span class="tc-stat-card__value">{{ stats.totalUsers }}</span>
+      </div>
+      <div class="tc-stat-card">
+        <span class="tc-stat-card__label">Customers</span>
+        <span class="tc-stat-card__value">{{ stats.customerCount }}</span>
+      </div>
+      <div class="tc-stat-card">
+        <span class="tc-stat-card__label">Managers</span>
+        <span class="tc-stat-card__value">{{ stats.managerCount }}</span>
+      </div>
+      <div class="tc-stat-card">
+        <span class="tc-stat-card__label">Admins</span>
+        <span class="tc-stat-card__value">{{ stats.adminCount }}</span>
+      </div>
+      <div class="tc-stat-card tc-stat-card--accent">
+        <span class="tc-stat-card__label">Restricted</span>
+        <span class="tc-stat-card__value">{{ stats.lockedOutCount }}</span>
+      </div>
+      <div class="tc-stat-card">
+        <span class="tc-stat-card__label">New (7 days)</span>
+        <span class="tc-stat-card__value">{{ stats.newUsersLast7Days }}</span>
+      </div>
+    </div>
+  }
+
+  @if (loading()) {
+    <p>Loading…</p>
+  } @else {
+    <table class="tc-catalog-table">
+      <thead>
+        <tr><th></th><th>Name</th><th>Email</th><th>Role</th><th>Joined</th><th>Status</th><th></th></tr>
+      </thead>
+      <tbody>
+        @for (user of users(); track user.id) {
+          <tr>
+            <td>
+              @if (previewUrls()[user.id]) {
+                <img class="tc-users-admin__avatar" [src]="previewUrls()[user.id]" [alt]="user.fullName" />
+              } @else {
+                <span class="tc-users-admin__avatar tc-users-admin__avatar--placeholder">{{ user.fullName.charAt(0) }}</span>
+              }
+            </td>
+            @if (editingId() === user.id) {
+              <td colspan="4">
+                <form class="tc-users-admin__edit-form" [formGroup]="form" (ngSubmit)="save(user)">
+                  <input type="text" formControlName="fullName" placeholder="Full name" />
+                  <input type="email" formControlName="email" placeholder="Email" />
+                  <input type="tel" formControlName="phoneNumber" placeholder="Phone" />
+                </form>
+              </td>
+            } @else {
+              <td>{{ user.fullName }}</td>
+              <td>{{ user.email }}</td>
+              <td>
+                @if (user.id !== currentUserId) {
+                  <select
+                    [value]="user.roles[0]"
+                    (change)="changeRole(user, $any($event.target).value)"
+                    [disabled]="busyId() === user.id"
+                  >
+                    <option value="Customer">Customer</option>
+                    <option value="Manager">Manager</option>
+                    <option value="Admin">Admin</option>
+                  </select>
+                } @else {
+                  {{ user.roles.join(', ') }} (you)
+                }
+              </td>
+              <td>{{ user.createdAtUtc ? (user.createdAtUtc | date: 'mediumDate') : '—' }}</td>
+            }
+            <td>{{ user.isLockedOut ? 'Restricted' : 'Active' }}</td>
+            <td class="tc-catalog-table__actions">
+              @if (editingId() === user.id) {
+                <button type="button" class="btn btn--primary" [disabled]="saving()" (click)="save(user)">
+                  {{ saving() ? 'SAVING…' : 'SAVE' }}
+                </button>
+                <button type="button" class="btn btn--outline" (click)="cancel()">CANCEL</button>
+              } @else {
+                <button type="button" class="btn btn--outline" (click)="startEdit(user)">EDIT</button>
+                @if (user.id !== currentUserId) {
+                  @if (user.isLockedOut) {
+                    <button type="button" class="btn btn--primary" [disabled]="busyId() === user.id" (click)="unrestrict(user)">
+                      UNRESTRICT
+                    </button>
+                  } @else {
+                    <button type="button" class="btn btn--danger" [disabled]="busyId() === user.id" (click)="restrict(user)">
+                      RESTRICT
+                    </button>
+                  }
+                }
+              }
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
+</section>

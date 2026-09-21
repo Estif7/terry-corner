@@ -1,0 +1,17 @@
+<div class="tc-admin-shell">
+  <nav class="tc-admin-shell__nav" aria-label="Admin sections">
+    <a routerLink="/admin/overview" routerLinkActive="is-active">Overview</a>
+    <a routerLink="/admin/receipts" routerLinkActive="is-active">Payment Receipts</a>
+    <a routerLink="/admin/orders" routerLinkActive="is-active">Orders</a>
+    <a routerLink="/admin/products" routerLinkActive="is-active">Products</a>
+    <a routerLink="/admin/categories" routerLinkActive="is-active">Categories</a>
+    <a routerLink="/admin/toppings" routerLinkActive="is-active">Toppings</a>
+    <a routerLink="/admin/payment-settings" routerLinkActive="is-active">Payment Settings</a>
+    <a routerLink="/admin/promotions" routerLinkActive="is-active">Promotions</a>
+    @if (auth.isAdmin()) {
+      <a routerLink="/admin/users" routerLinkActive="is-active">Users</a>
+    }
+  </nav>
+
+  <router-outlet></router-outlet>
+</div>

@@ -1,0 +1,50 @@
+<section class="tc-overview">
+  <h1>Overview</h1>
+
+  @if (loading()) {
+    <p>Loading…</p>
+  } @else {
+    @if (overview(); as stats) {
+      <div class="tc-overview__grid">
+        <div class="tc-stat-card">
+          <span class="tc-stat-card__label">Today's Orders</span>
+          <span class="tc-stat-card__value">{{ stats.todaysOrderCount }}</span>
+        </div>
+        <div class="tc-stat-card">
+          <span class="tc-stat-card__label">Today's Revenue</span>
+          <span class="tc-stat-card__value">ETB {{ stats.todaysRevenue | number: '1.0-2' }}</span>
+        </div>
+        <div class="tc-stat-card tc-stat-card--accent">
+          <span class="tc-stat-card__label">Pending Receipts</span>
+          <span class="tc-stat-card__value">{{ stats.pendingPaymentReceipts }}</span>
+        </div>
+        <div class="tc-stat-card">
+          <span class="tc-stat-card__label">Preparing</span>
+          <span class="tc-stat-card__value">{{ stats.ordersPreparing }}</span>
+        </div>
+        <div class="tc-stat-card">
+          <span class="tc-stat-card__label">Ready</span>
+          <span class="tc-stat-card__value">{{ stats.ordersReady }}</span>
+        </div>
+        <div class="tc-stat-card">
+          <span class="tc-stat-card__label">Completed Today</span>
+          <span class="tc-stat-card__value">{{ stats.ordersCompletedToday }}</span>
+        </div>
+      </div>
+
+      <h2 class="tc-overview__subheading">Popular Products</h2>
+      @if (stats.popularProducts.length === 0) {
+        <p class="tc-overview__empty">No orders yet.</p>
+      } @else {
+        <ol class="tc-popular-list">
+          @for (product of stats.popularProducts; track product.productName) {
+            <li>
+              <span>{{ product.productName }}</span>
+              <strong>{{ product.timesOrdered }} sold</strong>
+            </li>
+          }
+        </ol>
+      }
+    }
+  }
+</section>

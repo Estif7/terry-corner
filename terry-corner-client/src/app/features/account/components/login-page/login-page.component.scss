@@ -1,0 +1,50 @@
+@use '../../../../../styles/tokens' as t;
+@use '../../../../../styles/mixins' as m;
+
+.tc-auth {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: t.$space-12 t.$space-4 t.$space-16;
+
+  h1 { text-align: center; margin-bottom: t.$space-8; }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: t.$space-4;
+    background: t.$color-surface;
+    padding: t.$space-6;
+    border-radius: t.$radius-md;
+    box-shadow: t.$shadow-sm;
+  }
+
+  button { margin-top: t.$space-2; }
+
+  &__switch {
+    text-align: center;
+    margin-top: t.$space-6;
+    font-size: t.$fs-sm;
+
+    a { color: t.$color-danger; font-weight: 700; }
+  }
+}
+
+.tc-field {
+  display: flex;
+  flex-direction: column;
+  gap: t.$space-1;
+  font-weight: 600;
+  font-size: t.$fs-sm;
+
+  input {
+    @include m.touch-target;
+    padding: t.$space-3;
+    border-radius: t.$radius-sm;
+    border: 2px solid t.$color-border;
+    font-family: t.$font-body;
+    font-weight: 400;
+    font-size: t.$fs-base;
+
+    &:focus { border-color: t.$color-primary; }
+  }
+}

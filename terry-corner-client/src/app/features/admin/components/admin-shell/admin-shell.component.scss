@@ -1,0 +1,28 @@
+@use '../../../../../styles/tokens' as t;
+@use '../../../../../styles/mixins' as m;
+
+.tc-admin-shell {
+  &__nav {
+    display: flex;
+    gap: t.$space-2;
+    overflow-x: auto;
+    background: t.$color-primary;
+    padding: 0 t.$space-4;
+
+    a {
+      @include m.touch-target;
+      display: flex;
+      align-items: center;
+      padding: 0 t.$space-4;
+      color: rgba(255, 255, 255, 0.7);
+      font-weight: 700;
+      white-space: nowrap;
+      border-bottom: 3px solid transparent;
+
+      &:hover, &.is-active {
+        color: t.$color-text-inverse;
+        border-color: t.$color-accent;
+      }
+    }
+  }
+}

@@ -1,0 +1,69 @@
+<section class="tc-catalog-admin">
+  <div class="tc-catalog-admin__header">
+    <h1>Payment Settings</h1>
+    <button type="button" class="btn btn--primary" (click)="startCreate()">ADD PAYMENT METHOD</button>
+  </div>
+
+  @if (editingId()) {
+    <form class="tc-catalog-form" [formGroup]="form" (ngSubmit)="save()">
+      <label class="tc-field">
+        <span>Method Name</span>
+        <input type="text" formControlName="methodName" placeholder="e.g. Telebirr" />
+      </label>
+      <label class="tc-field">
+        <span>Account Name</span>
+        <input type="text" formControlName="accountName" />
+      </label>
+      <label class="tc-field">
+        <span>Account / Reference Number</span>
+        <input type="text" formControlName="accountNumberOrIdentifier" />
+      </label>
+      <label class="tc-field">
+        <span>Phone Number (optional)</span>
+        <input type="text" formControlName="phoneNumber" />
+      </label>
+      <label class="tc-field">
+        <span>Sort Order</span>
+        <input type="number" formControlName="sortOrder" />
+      </label>
+      <label class="tc-checkbox">
+        <input type="checkbox" formControlName="isActive" />
+        Active
+      </label>
+      <label class="tc-field tc-catalog-form__full-width">
+        <span>Instructions</span>
+        <textarea rows="3" formControlName="instructions"></textarea>
+      </label>
+
+      <div class="tc-catalog-form__actions">
+        <button type="submit" class="btn btn--primary" [disabled]="saving()">
+          {{ saving() ? 'SAVING…' : 'SAVE' }}
+        </button>
+        <button type="button" class="btn btn--outline" (click)="cancel()">CANCEL</button>
+      </div>
+    </form>
+  }
+
+  @if (loading()) {
+    <p>Loading…</p>
+  } @else {
+    <table class="tc-catalog-table">
+      <thead>
+        <tr><th>Method</th><th>Account</th><th>Active</th><th></th></tr>
+      </thead>
+      <tbody>
+        @for (method of methods(); track method.id) {
+          <tr>
+            <td>{{ method.methodName }}</td>
+            <td>{{ method.accountNumberOrIdentifier }}</td>
+            <td>{{ method.isActive ? 'Yes' : 'No' }}</td>
+            <td class="tc-catalog-table__actions">
+              <button type="button" class="btn btn--outline" (click)="startEdit(method)">EDIT</button>
+              <button type="button" class="btn btn--danger" (click)="remove(method)">DELETE</button>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
+</section>

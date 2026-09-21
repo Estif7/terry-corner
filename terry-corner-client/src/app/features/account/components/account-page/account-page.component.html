@@ -1,0 +1,92 @@
+<section class="tc-account">
+  <h1>My Account</h1>
+
+  @if (loading()) {
+    <p>Loading…</p>
+  } @else {
+    <section class="tc-panel">
+      <h2>Profile</h2>
+
+      <div class="tc-account__avatar-row">
+        @if (profilePictureUrl()) {
+          <img class="tc-account__avatar" [src]="profilePictureUrl()" alt="Your profile picture" />
+        } @else {
+          <span class="tc-account__avatar tc-account__avatar--placeholder">
+            {{ (profile()?.fullName ?? '?').charAt(0) }}
+          </span>
+        }
+
+        <div class="tc-account__avatar-actions">
+          <label class="btn btn--outline tc-account__avatar-upload">
+            {{ uploadingPicture() ? 'UPLOADING…' : (profilePictureUrl() ? 'CHANGE PICTURE' : 'ADD PICTURE') }}
+            <input type="file" accept="image/jpeg,image/png" (change)="onPictureSelected($event)" [disabled]="uploadingPicture()" />
+          </label>
+          @if (profilePictureUrl()) {
+            <button type="button" class="btn btn--danger" (click)="removePicture()">REMOVE</button>
+          }
+        </div>
+      </div>
+
+      @if (!editingProfile()) {
+        @if (profile(); as profile) {
+          <p>{{ profile.fullName }}</p>
+          <p class="tc-account__muted">{{ profile.phoneNumber }}</p>
+          @if (profile.email) {
+            <p class="tc-account__muted">{{ profile.email }}</p>
+          }
+          <button type="button" class="btn btn--outline" (click)="startEditProfile()">EDIT PROFILE</button>
+        }
+      } @else {
+        <form [formGroup]="profileForm" (ngSubmit)="saveProfile()" class="tc-account__form">
+          <label class="tc-field">
+            <span>Full Name</span>
+            <input type="text" formControlName="fullName" />
+          </label>
+          <label class="tc-field">
+            <span>Phone Number</span>
+            <input type="tel" formControlName="phoneNumber" />
+          </label>
+          <div class="tc-account__actions">
+            <button type="submit" class="btn btn--primary" [disabled]="savingProfile()">
+              {{ savingProfile() ? 'SAVING…' : 'SAVE' }}
+            </button>
+            <button type="button" class="btn btn--outline" (click)="editingProfile.set(false)">CANCEL</button>
+          </div>
+        </form>
+      }
+    </section>
+
+    <section class="tc-panel">
+      <h2>Order History</h2>
+
+      @if (orders().length === 0) {
+        <p class="tc-account__muted">You haven't placed any orders yet.</p>
+      } @else {
+        <ul class="tc-order-history">
+          @for (order of orders(); track order.orderNumber) {
+            <li>
+              <div>
+                <strong>{{ order.orderNumber }}</strong>
+                <span class="tc-account__muted">{{ order.createdAtUtc | date: 'mediumDate' }}</span>
+              </div>
+              <div class="tc-order-history__meta">
+                <span>{{ order.status }}</span>
+                <span>ETB {{ order.total | number: '1.0-2' }}</span>
+              </div>
+              <button
+                type="button"
+                class="btn btn--outline"
+                [disabled]="reorderingNumber() === order.orderNumber"
+                (click)="reorder(order.orderNumber)"
+              >
+                {{ reorderingNumber() === order.orderNumber ? 'ADDING…' : 'ORDER AGAIN' }}
+              </button>
+            </li>
+          }
+        </ul>
+      }
+    </section>
+
+    <button type="button" class="btn btn--danger" (click)="logout()">SIGN OUT</button>
+  }
+</section>

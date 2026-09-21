@@ -1,0 +1,66 @@
+@use '../../../../../styles/tokens' as t;
+
+.tc-payment {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: t.$space-8 t.$space-4 t.$space-16;
+  text-align: center;
+
+  &__eyebrow {
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    font-size: t.$fs-sm;
+    color: t.$color-text-muted;
+    margin-bottom: t.$space-2;
+  }
+
+  &__amount {
+    font-size: t.$fs-xl;
+    margin-bottom: t.$space-8;
+
+    strong { font-family: t.$font-display; color: t.$color-danger; }
+  }
+
+  &__methods {
+    display: flex;
+    flex-direction: column;
+    gap: t.$space-4;
+    text-align: left;
+    margin-bottom: t.$space-8;
+  }
+
+  &__method {
+    background: t.$color-surface;
+    border-radius: t.$radius-md;
+    padding: t.$space-6;
+    box-shadow: t.$shadow-sm;
+
+    h2 { font-size: t.$fs-lg; margin-bottom: t.$space-3; }
+
+    dl {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: t.$space-1 t.$space-4;
+      margin: 0 0 t.$space-3;
+    }
+
+    dt { color: t.$color-text-muted; font-size: t.$fs-sm; }
+    dd { margin: 0; font-weight: 700; }
+  }
+
+  &__instructions {
+    font-size: t.$fs-sm;
+    color: t.$color-text-muted;
+    margin: 0;
+  }
+
+  &__empty {
+    color: t.$color-text-muted;
+    margin-bottom: t.$space-8;
+  }
+
+  &__cta {
+    width: 100%;
+  }
+}

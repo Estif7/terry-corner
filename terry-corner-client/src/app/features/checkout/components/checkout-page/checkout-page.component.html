@@ -1,0 +1,79 @@
+<section class="tc-checkout">
+  <h1>Checkout</h1>
+
+  @if (cart.items().length === 0) {
+    <div class="tc-checkout__empty">
+      <p>Your cart is empty.</p>
+      <a routerLink="/menu" class="btn btn--primary">BROWSE THE MENU</a>
+    </div>
+  } @else {
+    <div class="tc-checkout__layout">
+      <form class="tc-checkout__form" [formGroup]="form" (ngSubmit)="submit()">
+        <label class="tc-field">
+          <span>Full Name</span>
+          <input type="text" formControlName="contactFullName" autocomplete="name" />
+          @if (form.controls.contactFullName.invalid && form.controls.contactFullName.touched) {
+            <em class="tc-field__error">Full name is required.</em>
+          }
+        </label>
+
+        <label class="tc-field">
+          <span>Phone Number</span>
+          <input type="tel" formControlName="contactPhoneNumber" autocomplete="tel" />
+          @if (form.controls.contactPhoneNumber.invalid && form.controls.contactPhoneNumber.touched) {
+            <em class="tc-field__error">Phone number is required.</em>
+          }
+        </label>
+
+        <fieldset class="tc-field-group">
+          <legend>Order Type</legend>
+          <label class="tc-radio">
+            <input type="radio" formControlName="orderType" value="Pickup" />
+            Pickup
+          </label>
+          <label class="tc-radio">
+            <input type="radio" formControlName="orderType" value="Delivery" />
+            Delivery
+          </label>
+        </fieldset>
+
+        @if (isDelivery) {
+          <label class="tc-field">
+            <span>Delivery Address</span>
+            <input type="text" formControlName="deliveryAddress" />
+            @if (form.controls.deliveryAddress.invalid && form.controls.deliveryAddress.touched) {
+              <em class="tc-field__error">Delivery address is required for delivery orders.</em>
+            }
+          </label>
+        }
+
+        <label class="tc-field">
+          <span>Order Notes (optional)</span>
+          <textarea formControlName="orderNotes" rows="3"></textarea>
+        </label>
+
+        <button type="submit" class="btn btn--primary tc-checkout__submit" [disabled]="submitting()">
+          {{ submitting() ? 'PLACING ORDER…' : 'PLACE ORDER' }}
+        </button>
+      </form>
+
+      <aside class="tc-checkout__summary">
+        <h2>Order Summary</h2>
+        <ul>
+          @for (item of cart.items(); track item.lineId) {
+            <li>
+              <span>{{ item.quantity }} × {{ item.name }}</span>
+            </li>
+          }
+        </ul>
+        <div class="tc-checkout__total">
+          <span>Subtotal</span>
+          <strong>ETB {{ cart.subtotal() | number: '1.0-2' }}</strong>
+        </div>
+        <p class="tc-checkout__note">
+          Final total is calculated by the server at order time.
+        </p>
+      </aside>
+    </div>
+  }
+</section>

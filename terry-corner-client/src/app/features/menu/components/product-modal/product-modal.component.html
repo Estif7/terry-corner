@@ -1,0 +1,80 @@
+<div class="tc-modal-backdrop" (click)="close()">
+  <div class="tc-modal" role="dialog" aria-modal="true" [attr.aria-label]="product.name" (click)="$event.stopPropagation()">
+    <button type="button" class="tc-modal__close" (click)="close()" aria-label="Close modal">&times;</button>
+
+    <div class="tc-modal__image">
+      @if (product.imageUrl) {
+        <img [src]="product.imageUrl | resolveImageUrl" [alt]="product.name" />
+      }
+      @if (product.isPopular) {
+        <span class="tc-badge tc-badge--popular">Popular</span>
+      }
+    </div>
+
+    <div class="tc-modal__body">
+      <div class="tc-modal__title-row">
+        <h2>{{ product.name }}</h2>
+        <span class="tc-modal__base-price">ETB {{ product.price | number: '1.0-0' }}</span>
+      </div>
+      <p class="tc-modal__description">{{ product.description }}</p>
+
+      @if (product.toppings.length > 0) {
+        <fieldset class="tc-modal__toppings">
+          <legend>Extra Add-ons</legend>
+          @for (topping of product.toppings; track topping.id) {
+            <label class="tc-topping-row" [class.tc-topping-row--disabled]="!topping.isAvailable">
+              <span class="tc-topping-row__label">
+                <input
+                  type="checkbox"
+                  [checked]="selectedToppingIds().has(topping.id)"
+                  [disabled]="!topping.isAvailable"
+                  (change)="toggleTopping(topping)"
+                />
+                {{ topping.name }}
+                @if (!topping.isAvailable) { <em>(unavailable)</em> }
+              </span>
+              <span class="tc-topping-row__price">+ ETB {{ topping.additionalPrice | number: '1.0-0' }}</span>
+            </label>
+          }
+        </fieldset>
+      }
+
+      <div class="tc-modal__quantity">
+        <span>Quantity</span>
+        <div class="tc-quantity-control">
+          <button type="button" (click)="decrement()" [disabled]="quantity() <= 1" aria-label="Decrease quantity">&minus;</button>
+          <span aria-live="polite">{{ quantity() }}</span>
+          <button type="button" (click)="increment()" aria-label="Increase quantity">&plus;</button>
+        </div>
+      </div>
+
+      <div class="tc-modal__total" aria-live="polite">
+        <span>Calculated Total</span>
+        <strong>ETB {{ total() | number: '1.0-0' }}</strong>
+      </div>
+
+      <div class="tc-modal__actions">
+        <button
+          type="button"
+          class="btn btn--primary tc-modal__action-btn"
+          [disabled]="!product.isAvailable"
+          (click)="addToOrder()"
+        >
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+            <line x1="3" y1="6" x2="21" y2="6"/>
+            <path d="M16 10a4 4 0 0 1-8 0"/>
+          </svg>
+          {{ product.isAvailable ? 'ADD TO TRAY' : 'SOLD OUT' }}
+        </button>
+
+        <a href="tel:+251911076211" class="btn btn--outline tc-modal__action-btn">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+          </svg>
+          CALL TO ORDER
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

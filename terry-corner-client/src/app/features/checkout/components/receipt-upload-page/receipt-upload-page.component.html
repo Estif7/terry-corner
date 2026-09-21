@@ -1,0 +1,44 @@
+@if (!submitted()) {
+  <section class="tc-receipt">
+    <h1>Submit Payment Receipt</h1>
+    <p class="tc-receipt__order">Order {{ orderNumber }}</p>
+
+    <label class="tc-upload">
+      <input type="file" accept="image/jpeg,image/png,application/pdf" (change)="onFileSelected($event)" />
+      <span>{{ selectedFile()?.name ?? 'Choose a receipt image or PDF' }}</span>
+    </label>
+    @if (fileError()) {
+      <em class="tc-field__error">{{ fileError() }}</em>
+    }
+
+    <label class="tc-field">
+      <span>Transaction / Reference Number (optional)</span>
+      <input
+        type="text"
+        [value]="transactionReferenceNumber()"
+        (input)="transactionReferenceNumber.set($any($event.target).value)"
+      />
+    </label>
+
+    <label class="tc-field">
+      <span>Payment Note (optional)</span>
+      <textarea
+        rows="3"
+        [value]="paymentNote()"
+        (input)="paymentNote.set($any($event.target).value)"
+      ></textarea>
+    </label>
+
+    <button type="button" class="btn btn--primary tc-receipt__submit" [disabled]="submitting()" (click)="submit()">
+      {{ submitting() ? 'SUBMITTING…' : 'SUBMIT RECEIPT' }}
+    </button>
+  </section>
+} @else {
+  <section class="tc-receipt tc-receipt--confirmation">
+    <h1>PAYMENT RECEIPT SUBMITTED</h1>
+    <p>Your receipt has been submitted and is waiting for verification.</p>
+    <p class="tc-receipt__order">Order {{ orderNumber }}</p>
+    <p class="tc-receipt__status">Payment status: <strong>Pending Verification</strong></p>
+    <button type="button" class="btn btn--primary" (click)="goToTracking()">TRACK MY ORDER</button>
+  </section>
+}

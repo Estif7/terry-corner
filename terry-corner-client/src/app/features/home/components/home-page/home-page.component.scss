@@ -1,0 +1,267 @@
+@use '../../../../../styles/tokens' as t;
+@use '../../../../../styles/mixins' as m;
+
+.tc-hero {
+  background: t.$color-primary;
+  color: t.$color-text-inverse;
+  padding: t.$space-12 t.$space-4;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+
+  @include m.from(md) {
+    padding: t.$space-16 t.$space-8;
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 50% 30%, rgba(255, 199, 0, 0.18), transparent 70%);
+  }
+
+  &__content {
+    position: relative;
+    max-width: 720px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &__emblem {
+    margin-bottom: t.$space-4;
+  }
+
+  &__logo {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 3px solid t.$color-accent;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+    background: #000;
+
+    @include m.from(md) {
+      width: 96px;
+      height: 96px;
+    }
+  }
+
+  &__headline {
+    font-size: 2.5rem;
+    line-height: 1.05;
+    margin-bottom: t.$space-2;
+
+    span { color: t.$color-accent; }
+
+    @include m.from(md) {
+      font-size: t.$fs-4xl;
+    }
+  }
+
+  &__subtext {
+    color: rgba(255, 255, 255, 0.82);
+    font-size: t.$fs-base;
+    max-width: 520px;
+    margin: t.$space-3 auto t.$space-6;
+    line-height: 1.5;
+
+    @include m.from(md) {
+      font-size: t.$fs-lg;
+    }
+  }
+
+  &__actions {
+    display: flex;
+    flex-direction: column;
+    gap: t.$space-3;
+    width: 100%;
+    max-width: 380px;
+
+    @include m.from(sm) {
+      flex-direction: row;
+      justify-content: center;
+      max-width: none;
+    }
+
+    .btn--outline {
+      border-color: rgba(255, 255, 255, 0.35);
+      color: t.$color-text-inverse;
+
+      &:hover {
+        background: t.$color-text-inverse;
+        color: t.$color-primary;
+      }
+    }
+  }
+
+  &__call-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+}
+
+.tc-special {
+  background: t.$color-accent;
+  padding: t.$space-8 t.$space-4;
+  color: t.$color-primary;
+
+  @include m.from(md) {
+    padding: t.$space-12 t.$space-4;
+  }
+
+  &__inner {
+    max-width: 640px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  &__eyebrow {
+    display: inline-block;
+    text-transform: uppercase;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    font-size: 0.75rem;
+    margin-bottom: t.$space-1;
+    background: rgba(0, 0, 0, 0.1);
+    padding: 3px 12px;
+    border-radius: t.$radius-pill;
+  }
+
+  h2 {
+    font-size: 1.75rem;
+    margin-bottom: t.$space-2;
+
+    @include m.from(md) {
+      font-size: t.$fs-2xl;
+    }
+  }
+
+  p {
+    color: rgba(0, 0, 0, 0.75);
+    margin-bottom: t.$space-4;
+  }
+
+  &__btn {
+    background: t.$color-primary;
+    color: t.$color-text-inverse;
+
+    &:hover {
+      background: t.$tc-black-soft;
+    }
+  }
+}
+
+.tc-section-title {
+  text-align: center;
+  font-size: 1.75rem;
+  margin-bottom: t.$space-6;
+
+  @include m.from(md) {
+    font-size: t.$fs-2xl;
+    margin-bottom: t.$space-8;
+  }
+
+  &--light { color: t.$color-text-inverse; }
+}
+
+.tc-featured {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: t.$space-8 t.$space-4;
+
+  @include m.from(lg) {
+    padding: t.$space-16 t.$space-8;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: t.$space-4;
+
+    @include m.from(md) {
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: t.$space-6;
+    }
+  }
+
+  &__empty {
+    text-align: center;
+    color: t.$color-text-muted;
+  }
+}
+
+.tc-why {
+  background: t.$color-primary;
+  padding: t.$space-12 t.$space-4;
+
+  @include m.from(lg) {
+    padding: t.$space-16 t.$space-8;
+  }
+
+  &__grid {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: t.$space-4;
+
+    @include m.from(md) {
+      gap: t.$space-6;
+    }
+  }
+
+  &__item {
+    padding: t.$space-6;
+    border-radius: t.$radius-lg;
+    background: t.$tc-black-soft;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    color: t.$color-text-inverse;
+
+    h3 {
+      color: t.$color-accent;
+      font-size: 1.2rem;
+      margin-bottom: t.$space-2;
+    }
+
+    p {
+      color: rgba(255, 255, 255, 0.75);
+      margin: 0;
+      font-size: t.$fs-sm;
+      line-height: 1.5;
+    }
+  }
+}
+
+.tc-cta {
+  text-align: center;
+  padding: t.$space-12 t.$space-4;
+
+  @include m.from(md) {
+    padding: t.$space-16 t.$space-4;
+  }
+
+  h2 {
+    font-size: 2rem;
+    margin-bottom: t.$space-2;
+  }
+
+  p {
+    color: t.$color-text-muted;
+    margin-bottom: t.$space-6;
+    font-size: t.$fs-base;
+  }
+
+  &__actions {
+    display: flex;
+    flex-direction: column;
+    gap: t.$space-3;
+    justify-content: center;
+    align-items: center;
+
+    @include m.from(sm) {
+      flex-direction: row;
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "name": "terry-corner",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Terry Corner - Made For The Crave",
+  "scripts": {
+    "build": "npm run build --prefix terry-corner-client",
+    "start": "npm start --prefix terry-corner-client"
+  }
+}

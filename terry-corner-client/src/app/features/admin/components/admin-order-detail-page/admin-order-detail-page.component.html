@@ -1,0 +1,101 @@
+<section class="tc-order-detail">
+  <a routerLink="/admin/orders" class="tc-order-detail__back">&larr; Back to Orders</a>
+
+  @if (loading()) {
+    <p>Loading…</p>
+  } @else {
+    @if (order(); as order) {
+    <h1>Order {{ order.orderNumber }}</h1>
+
+    <div class="tc-order-detail__grid">
+      <div class="tc-order-detail__main">
+        <section class="tc-panel">
+          <h2>Items</h2>
+          <table class="tc-items-table">
+            <tbody>
+              @for (item of order.items; track item.productId) {
+                <tr>
+                  <td>{{ item.quantity }} × {{ item.productName }}</td>
+                  <td class="tc-items-table__toppings">{{ item.toppingNames.join(', ') }}</td>
+                  <td class="tc-items-table__total">ETB {{ item.lineTotal | number: '1.0-2' }}</td>
+                </tr>
+              }
+            </tbody>
+          </table>
+          <div class="tc-order-detail__totals">
+            <span>Subtotal</span><span>ETB {{ order.subtotal | number: '1.0-2' }}</span>
+          </div>
+          <div class="tc-order-detail__totals">
+            <span>Discount</span><span>-ETB {{ order.discountAmount | number: '1.0-2' }}</span>
+          </div>
+          <div class="tc-order-detail__totals tc-order-detail__totals--grand">
+            <span>Total</span><span>ETB {{ order.total | number: '1.0-2' }}</span>
+          </div>
+        </section>
+
+        <section class="tc-panel">
+          <h2>Payment Receipts</h2>
+          @if (order.receipts.length === 0) {
+            <p class="tc-order-detail__muted">No receipts submitted yet.</p>
+          } @else {
+            <ul class="tc-receipts-list">
+              @for (receipt of order.receipts; track receipt.id) {
+                <li>
+                  <span>{{ receipt.status }}</span>
+                  @if (receipt.transactionReferenceNumber) {
+                    <span>Ref: {{ receipt.transactionReferenceNumber }}</span>
+                  }
+                  <span>{{ receipt.submittedAtUtc | date: 'medium' }}</span>
+                </li>
+              }
+            </ul>
+          }
+        </section>
+
+        <section class="tc-panel">
+          <h2>Internal Staff Notes</h2>
+          <textarea
+            rows="3"
+            [value]="noteDraft()"
+            (input)="noteDraft.set($any($event.target).value)"
+          ></textarea>
+          <button type="button" class="btn btn--outline" [disabled]="savingNote()" (click)="saveNote()">
+            {{ savingNote() ? 'SAVING…' : 'SAVE NOTE' }}
+          </button>
+        </section>
+      </div>
+
+      <aside class="tc-panel tc-order-detail__side">
+        <h2>Customer</h2>
+        <p>{{ order.customerName }}</p>
+        <p>{{ order.contactPhoneNumber }}</p>
+
+        <h2>Fulfillment</h2>
+        <p>{{ order.orderType }}</p>
+        @if (order.deliveryAddress) {
+          <p>{{ order.deliveryAddress }}</p>
+        }
+        @if (order.orderNotes) {
+          <p class="tc-order-detail__muted">"{{ order.orderNotes }}"</p>
+        }
+
+        <h2>Status</h2>
+        <p class="tc-order-detail__status">{{ order.status }}</p>
+        <p class="tc-order-detail__muted">Payment: {{ order.paymentStatus }}</p>
+
+        <div class="tc-order-detail__status-actions">
+          <button type="button" class="btn btn--primary" [disabled]="updatingStatus()" (click)="setStatus('Ready')">
+            MARK READY
+          </button>
+          <button type="button" class="btn btn--dark" [disabled]="updatingStatus()" (click)="setStatus('Completed')">
+            MARK COMPLETED
+          </button>
+          <button type="button" class="btn btn--danger" [disabled]="updatingStatus()" (click)="setStatus('Cancelled')">
+            CANCEL ORDER
+          </button>
+        </div>
+      </aside>
+    </div>
+    }
+  }
+</section>

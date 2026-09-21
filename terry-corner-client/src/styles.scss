@@ -1,0 +1,7 @@
+// Terry Corner — global stylesheet entry point
+@use 'styles/tokens';
+@use 'styles/base';
+@use 'styles/admin-catalog';
+
+// Fonts (self-hosted recommended for prod; using Google Fonts CDN link in index.html for now)
+html, body { height: 100%; }

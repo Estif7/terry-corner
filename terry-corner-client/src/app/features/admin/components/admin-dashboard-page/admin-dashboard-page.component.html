@@ -1,0 +1,78 @@
+<section class="tc-admin">
+  <h1>Payment Receipts</h1>
+  <p class="tc-admin__subtitle">Review receipts submitted by customers awaiting payment verification.</p>
+
+  @if (loading()) {
+    <p>Loading…</p>
+  } @else if (receipts().length === 0) {
+    <p class="tc-admin__empty">No receipts are waiting for review right now.</p>
+  } @else {
+    <ul class="tc-admin__list">
+      @for (receipt of receipts(); track receipt.id) {
+        <li class="tc-receipt-card">
+          <div class="tc-receipt-card__preview">
+            @if (previewUrls()[receipt.id]) {
+              <img [src]="previewUrls()[receipt.id]" [alt]="receipt.originalFileNameForDisplay" />
+            } @else {
+              <span class="tc-receipt-card__loading">Loading preview…</span>
+            }
+          </div>
+
+          <div class="tc-receipt-card__details">
+            <h2>Order {{ receipt.orderNumber }}</h2>
+            <p>{{ receipt.customerName }}</p>
+            <p class="tc-receipt-card__amount">ETB {{ receipt.orderTotal | number: '1.0-2' }}</p>
+            @if (receipt.transactionReferenceNumber) {
+              <p class="tc-receipt-card__meta">Ref: {{ receipt.transactionReferenceNumber }}</p>
+            }
+            @if (receipt.paymentNote) {
+              <p class="tc-receipt-card__meta">Note: {{ receipt.paymentNote }}</p>
+            }
+            <p class="tc-receipt-card__meta">Submitted {{ receipt.submittedAtUtc | date: 'medium' }}</p>
+
+            @if (rejectingId() === receipt.id) {
+              <div class="tc-receipt-card__reject-form">
+                <textarea
+                  rows="2"
+                  placeholder="Reason for rejection"
+                  [value]="rejectReason()"
+                  (input)="rejectReason.set($any($event.target).value)"
+                ></textarea>
+                <div class="tc-receipt-card__actions">
+                  <button
+                    type="button"
+                    class="btn btn--danger"
+                    [disabled]="busyId() === receipt.id"
+                    (click)="confirmReject(receipt)"
+                  >
+                    CONFIRM REJECT
+                  </button>
+                  <button type="button" class="btn btn--outline" (click)="cancelReject()">CANCEL</button>
+                </div>
+              </div>
+            } @else {
+              <div class="tc-receipt-card__actions">
+                <button
+                  type="button"
+                  class="btn btn--primary"
+                  [disabled]="busyId() === receipt.id"
+                  (click)="approve(receipt)"
+                >
+                  APPROVE PAYMENT
+                </button>
+                <button
+                  type="button"
+                  class="btn btn--danger"
+                  [disabled]="busyId() === receipt.id"
+                  (click)="startReject(receipt.id)"
+                >
+                  REJECT PAYMENT
+                </button>
+              </div>
+            }
+          </div>
+        </li>
+      }
+    </ul>
+  }
+</section>

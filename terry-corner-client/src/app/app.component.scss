@@ -1,0 +1,10 @@
+@use '../styles/mixins' as m;
+
+.tc-main {
+  min-height: 60vh;
+  padding-bottom: 72px;
+
+  @include m.from(md) {
+    padding-bottom: 0;
+  }
+}

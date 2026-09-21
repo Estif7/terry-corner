@@ -1,0 +1,42 @@
+<section class="tc-tracking">
+  <h1>Track Your Order</h1>
+
+  <div class="tc-tracking__search">
+    <input
+      type="text"
+      placeholder="Enter your order number, e.g. TC-1000"
+      [ngModel]="searchValue()"
+      (ngModelChange)="searchValue.set($event)"
+      (keyup.enter)="search()"
+    />
+    <button type="button" class="btn btn--primary" (click)="search()">TRACK</button>
+  </div>
+
+  @if (loading()) {
+    <p class="tc-tracking__status-text">Loading…</p>
+  } @else if (notFound()) {
+    <p class="tc-tracking__status-text">We couldn't find an order with that number.</p>
+  } @else {
+    @if (tracking(); as order) {
+      <div class="tc-tracking__result">
+        <h2>ORDER #{{ order.orderNumber }}</h2>
+        <p class="tc-tracking__total">Total: ETB {{ order.total | number: '1.0-2' }}</p>
+
+        <ol class="tc-timeline">
+          @for (step of order.timeline; track step.status) {
+            <li
+              class="tc-timeline__step"
+              [class.tc-timeline__step--complete]="step.isComplete"
+              [class.tc-timeline__step--active]="step.isActive"
+            >
+              <span class="tc-timeline__marker" aria-hidden="true">
+                @if (step.isComplete) { ✓ } @else if (step.isActive) { ● } @else { ○ }
+              </span>
+              <span class="tc-timeline__label">{{ statusLabels[step.status] || step.status }}</span>
+            </li>
+          }
+        </ol>
+      </div>
+    }
+  }
+</section>

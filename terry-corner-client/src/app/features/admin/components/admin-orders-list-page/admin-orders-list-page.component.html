@@ -1,0 +1,51 @@
+<section class="tc-orders-admin">
+  <h1>Orders</h1>
+
+  <div class="tc-orders-admin__filters">
+    <input
+      type="text"
+      placeholder="Search order number or customer name…"
+      [ngModel]="search()"
+      (ngModelChange)="search.set($event)"
+      (keyup.enter)="load()"
+    />
+    <select [ngModel]="statusFilter()" (ngModelChange)="statusFilter.set($event); load()">
+      <option value="">All statuses</option>
+      @for (status of statusOptions; track status) {
+        <option [value]="status">{{ status }}</option>
+      }
+    </select>
+    <button type="button" class="btn btn--dark" (click)="load()">SEARCH</button>
+  </div>
+
+  @if (loading()) {
+    <p>Loading…</p>
+  } @else if (orders().length === 0) {
+    <p class="tc-orders-admin__empty">No orders match.</p>
+  } @else {
+    <table class="tc-orders-table">
+      <thead>
+        <tr>
+          <th>Order</th>
+          <th>Customer</th>
+          <th>Status</th>
+          <th>Payment</th>
+          <th>Total</th>
+          <th>Placed</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (order of orders(); track order.id) {
+          <tr (click)="openOrder(order)">
+            <td>{{ order.orderNumber }}</td>
+            <td>{{ order.customerName }}</td>
+            <td>{{ order.status }}</td>
+            <td>{{ order.paymentStatus }}</td>
+            <td>ETB {{ order.total | number: '1.0-2' }}</td>
+            <td>{{ order.createdAtUtc | date: 'short' }}</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
+</section>

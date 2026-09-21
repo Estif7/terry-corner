@@ -1,0 +1,58 @@
+<section class="tc-catalog-admin">
+  <div class="tc-catalog-admin__header">
+    <h1>Toppings</h1>
+    <button type="button" class="btn btn--primary" (click)="startCreate()">ADD TOPPING</button>
+  </div>
+
+  @if (editingId()) {
+    <form class="tc-catalog-form" [formGroup]="form" (ngSubmit)="save()">
+      <label class="tc-field">
+        <span>Name</span>
+        <input type="text" formControlName="name" />
+      </label>
+      <label class="tc-field">
+        <span>Additional Price (ETB)</span>
+        <input type="number" step="0.01" formControlName="additionalPrice" />
+      </label>
+      <label class="tc-field">
+        <span>Sort Order</span>
+        <input type="number" formControlName="sortOrder" />
+      </label>
+      <label class="tc-checkbox">
+        <input type="checkbox" formControlName="isAvailable" />
+        Available
+      </label>
+
+      <div class="tc-catalog-form__actions">
+        <button type="submit" class="btn btn--primary" [disabled]="saving()">
+          {{ saving() ? 'SAVING…' : 'SAVE' }}
+        </button>
+        <button type="button" class="btn btn--outline" (click)="cancel()">CANCEL</button>
+      </div>
+    </form>
+  }
+
+  @if (loading()) {
+    <p>Loading…</p>
+  } @else {
+    <table class="tc-catalog-table">
+      <thead>
+        <tr><th>Name</th><th>Price</th><th>Sort</th><th>Available</th><th></th></tr>
+      </thead>
+      <tbody>
+        @for (topping of toppings(); track topping.id) {
+          <tr>
+            <td>{{ topping.name }}</td>
+            <td>ETB {{ topping.additionalPrice | number: '1.0-2' }}</td>
+            <td>{{ topping.sortOrder }}</td>
+            <td>{{ topping.isAvailable ? 'Yes' : 'No' }}</td>
+            <td class="tc-catalog-table__actions">
+              <button type="button" class="btn btn--outline" (click)="startEdit(topping)">EDIT</button>
+              <button type="button" class="btn btn--danger" (click)="remove(topping)">DELETE</button>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
+</section>

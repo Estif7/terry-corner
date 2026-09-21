@@ -1,0 +1,71 @@
+<nav class="tc-bottom-nav" aria-label="Mobile Navigation">
+  <!-- Home Tab -->
+  <a
+    routerLink="/"
+    routerLinkActive="is-active"
+    [routerLinkActiveOptions]="{ exact: true }"
+    class="tc-bottom-nav__item"
+    aria-label="Go to Home"
+  >
+    <div class="tc-bottom-nav__icon-wrap">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+        <polyline points="9 22 9 12 15 12 15 22"/>
+      </svg>
+    </div>
+    <span class="tc-bottom-nav__label">Home</span>
+  </a>
+
+  <!-- Menu Tab with clean Menu Book icon -->
+  <a
+    routerLink="/menu"
+    routerLinkActive="is-active"
+    class="tc-bottom-nav__item"
+    aria-label="Explore Menu"
+  >
+    <div class="tc-bottom-nav__icon-wrap">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+        <line x1="9" y1="7" x2="16" y2="7"/>
+        <line x1="9" y1="11" x2="16" y2="11"/>
+        <line x1="9" y1="15" x2="13" y2="15"/>
+      </svg>
+    </div>
+    <span class="tc-bottom-nav__label">Menu</span>
+  </a>
+
+  <!-- Tray / Cart Tab with live item badge -->
+  <a
+    routerLink="/cart"
+    routerLinkActive="is-active"
+    class="tc-bottom-nav__item"
+    aria-label="View Tray"
+  >
+    <div class="tc-bottom-nav__icon-wrap tc-bottom-nav__icon-wrap--tray">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+        <line x1="3" y1="6" x2="21" y2="6"/>
+        <path d="M16 10a4 4 0 0 1-8 0"/>
+      </svg>
+      @if (cart.itemCount() > 0) {
+        <span class="tc-bottom-nav__badge">{{ cart.itemCount() }}</span>
+      }
+    </div>
+    <span class="tc-bottom-nav__label">Tray</span>
+  </a>
+
+  <!-- Call Us Tab -->
+  <a
+    href="tel:+251911076211"
+    class="tc-bottom-nav__item tc-bottom-nav__item--call"
+    aria-label="Call Terry Corner"
+  >
+    <div class="tc-bottom-nav__icon-wrap tc-bottom-nav__icon-wrap--call">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+      </svg>
+    </div>
+    <span class="tc-bottom-nav__label">Call</span>
+  </a>
+</nav>

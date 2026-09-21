@@ -1,0 +1,93 @@
+@use '../../../../../styles/tokens' as t;
+@use '../../../../../styles/mixins' as m;
+
+.tc-admin {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: t.$space-8 t.$space-4 t.$space-16;
+
+  &__subtitle {
+    color: t.$color-text-muted;
+    margin-bottom: t.$space-8;
+  }
+
+  &__empty {
+    text-align: center;
+    color: t.$color-text-muted;
+    padding: t.$space-16 0;
+  }
+
+  &__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: t.$space-6;
+  }
+}
+
+.tc-receipt-card {
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  gap: t.$space-6;
+  background: t.$color-surface;
+  border-radius: t.$radius-md;
+  padding: t.$space-6;
+  box-shadow: t.$shadow-sm;
+
+  @media (max-width: 600px) {
+    grid-template-columns: 1fr;
+  }
+
+  &__preview {
+    background: t.$color-surface-alt;
+    border-radius: t.$radius-sm;
+    overflow: hidden;
+    aspect-ratio: 3 / 4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    img { width: 100%; height: 100%; object-fit: cover; }
+  }
+
+  &__loading {
+    font-size: t.$fs-xs;
+    color: t.$color-text-muted;
+  }
+
+  &__details {
+    h2 { font-size: t.$fs-lg; margin-bottom: t.$space-1; }
+    p { margin: 0 0 t.$space-1; }
+  }
+
+  &__amount {
+    font-family: t.$font-display;
+    font-size: t.$fs-lg;
+  }
+
+  &__meta {
+    font-size: t.$fs-sm;
+    color: t.$color-text-muted;
+  }
+
+  &__actions {
+    display: flex;
+    gap: t.$space-3;
+    margin-top: t.$space-4;
+  }
+
+  &__reject-form {
+    margin-top: t.$space-4;
+
+    textarea {
+      width: 100%;
+      padding: t.$space-3;
+      border-radius: t.$radius-sm;
+      border: 2px solid t.$color-border;
+      font-family: t.$font-body;
+      margin-bottom: t.$space-3;
+    }
+  }
+}

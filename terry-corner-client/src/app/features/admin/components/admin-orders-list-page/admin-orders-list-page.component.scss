@@ -1,0 +1,58 @@
+@use '../../../../../styles/tokens' as t;
+@use '../../../../../styles/mixins' as m;
+
+.tc-orders-admin {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: t.$space-8 t.$space-4 t.$space-16;
+
+  &__filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: t.$space-3;
+    margin-bottom: t.$space-6;
+
+    input, select {
+      @include m.touch-target;
+      padding: t.$space-3;
+      border-radius: t.$radius-sm;
+      border: 2px solid t.$color-border;
+    }
+
+    input { flex: 1; min-width: 200px; }
+  }
+
+  &__empty {
+    color: t.$color-text-muted;
+    text-align: center;
+    padding: t.$space-16 0;
+  }
+}
+
+.tc-orders-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: t.$color-surface;
+  border-radius: t.$radius-md;
+  overflow: hidden;
+  box-shadow: t.$shadow-sm;
+
+  th, td {
+    text-align: left;
+    padding: t.$space-3 t.$space-4;
+    font-size: t.$fs-sm;
+  }
+
+  thead {
+    background: t.$color-surface-alt;
+
+    th { font-weight: 700; text-transform: uppercase; font-size: t.$fs-xs; letter-spacing: 0.04em; }
+  }
+
+  tbody tr {
+    border-top: 1px solid t.$color-border;
+    cursor: pointer;
+
+    &:hover { background: t.$color-surface-alt; }
+  }
+}

@@ -1,0 +1,54 @@
+@use '../../../../styles/tokens' as t;
+
+.tc-toast-region {
+  position: fixed;
+  bottom: t.$space-4;
+  right: t.$space-4;
+  left: t.$space-4;
+  z-index: t.$z-toast;
+  display: flex;
+  flex-direction: column;
+  gap: t.$space-2;
+  align-items: flex-end;
+
+  @media (min-width: t.$bp-md) {
+    left: auto;
+    max-width: 360px;
+  }
+}
+
+.tc-toast {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: t.$space-3;
+  padding: t.$space-3 t.$space-4;
+  border-radius: t.$radius-md;
+  box-shadow: t.$shadow-lg;
+  font-size: t.$fs-sm;
+  font-weight: 600;
+  color: t.$color-text-inverse;
+  animation: tc-toast-in 200ms ease-out;
+
+  &--success { background: #1c9a5b; }
+  &--error { background: t.$color-danger; }
+  &--info { background: t.$color-primary; }
+
+  button {
+    background: none;
+    border: none;
+    color: inherit;
+    font-size: t.$fs-lg;
+    line-height: 1;
+  }
+}
+
+@keyframes tc-toast-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tc-toast { animation: none; }
+}

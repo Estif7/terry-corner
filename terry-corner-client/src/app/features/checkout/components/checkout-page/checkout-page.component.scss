@@ -1,0 +1,121 @@
+@use '../../../../../styles/tokens' as t;
+@use '../../../../../styles/mixins' as m;
+
+.tc-checkout {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: t.$space-8 t.$space-4 t.$space-16;
+
+  h1 { margin-bottom: t.$space-6; }
+
+  &__empty {
+    text-align: center;
+    padding: t.$space-16 0;
+    color: t.$color-text-muted;
+
+    p { margin-bottom: t.$space-6; }
+  }
+
+  &__layout {
+    display: grid;
+    gap: t.$space-8;
+    grid-template-columns: 1fr;
+
+    @include m.from(md) {
+      grid-template-columns: 1.4fr 1fr;
+      align-items: start;
+    }
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: t.$space-4;
+    background: t.$color-surface;
+    padding: t.$space-6;
+    border-radius: t.$radius-md;
+    box-shadow: t.$shadow-sm;
+  }
+
+  &__submit {
+    margin-top: t.$space-2;
+  }
+
+  &__summary {
+    background: t.$color-surface;
+    padding: t.$space-6;
+    border-radius: t.$radius-md;
+    box-shadow: t.$shadow-sm;
+
+    h2 { font-size: t.$fs-lg; margin-bottom: t.$space-4; }
+
+    ul { list-style: none; margin: 0 0 t.$space-4; padding: 0; }
+    li { padding: t.$space-1 0; font-size: t.$fs-sm; }
+  }
+
+  &__total {
+    display: flex;
+    justify-content: space-between;
+    padding-top: t.$space-4;
+    border-top: 1px solid t.$color-border;
+    font-size: t.$fs-lg;
+
+    strong { font-family: t.$font-display; }
+  }
+
+  &__note {
+    font-size: t.$fs-xs;
+    color: t.$color-text-muted;
+    margin-top: t.$space-3;
+  }
+}
+
+.tc-field {
+  display: flex;
+  flex-direction: column;
+  gap: t.$space-1;
+  font-weight: 600;
+  font-size: t.$fs-sm;
+
+  input, textarea {
+    @include m.touch-target;
+    padding: t.$space-3;
+    border-radius: t.$radius-sm;
+    border: 2px solid t.$color-border;
+    font-family: t.$font-body;
+    font-weight: 400;
+    font-size: t.$fs-base;
+
+    &:focus { border-color: t.$color-primary; }
+  }
+
+  &__error {
+    color: t.$color-danger;
+    font-style: normal;
+    font-weight: 400;
+    font-size: t.$fs-xs;
+  }
+}
+
+.tc-field-group {
+  border: none;
+  padding: 0;
+  display: flex;
+  gap: t.$space-6;
+
+  legend {
+    font-family: t.$font-display;
+    font-size: t.$fs-sm;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-bottom: t.$space-2;
+    width: 100%;
+  }
+}
+
+.tc-radio {
+  display: flex;
+  align-items: center;
+  gap: t.$space-2;
+  font-weight: 400;
+}

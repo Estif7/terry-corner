@@ -1,0 +1,15 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: terry-corner-postgres
+    environment:
+      POSTGRES_DB: terrycorner
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - terry-corner-postgres-data:/var/lib/postgresql/data
+
+volumes:
+  terry-corner-postgres-data:

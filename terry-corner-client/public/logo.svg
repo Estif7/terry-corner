@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1c1c1c"/>
+      <stop offset="100%" stop-color="#0a0a0a"/>
+    </linearGradient>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffe066"/>
+      <stop offset="50%" stop-color="#ffc700"/>
+      <stop offset="100%" stop-color="#e6a800"/>
+    </linearGradient>
+    <linearGradient id="bunGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#f59e0b"/>
+      <stop offset="100%" stop-color="#d97706"/>
+    </linearGradient>
+    <linearGradient id="pattyGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#5a2a18"/>
+      <stop offset="100%" stop-color="#38180c"/>
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="#000000" flood-opacity="0.5"/>
+    </filter>
+  </defs>
+
+  <!-- Outer Ring Badge -->
+  <circle cx="120" cy="120" r="114" fill="url(#bgGrad)" stroke="url(#goldGrad)" stroke-width="6"/>
+  <circle cx="120" cy="120" r="105" fill="none" stroke="#ffc700" stroke-width="1.5" stroke-dasharray="4 3" opacity="0.6"/>
+
+  <!-- Flame Accent Background -->
+  <path d="M120 42 C126 56, 138 68, 138 80 C138 86, 134 92, 128 95 C124 97, 120 95, 120 95 C120 95, 116 97, 112 95 C106 92, 102 86, 102 80 C102 68, 114 56, 120 42 Z" fill="#e11d2e" opacity="0.85"/>
+  <path d="M120 54 C123 63, 130 72, 130 79 C130 83, 127 87, 123 88 C121 89, 120 88, 120 88 C120 88, 119 89, 117 88 C113 87, 110 83, 110 79 C110 72, 117 63, 120 54 Z" fill="#ffc700"/>
+
+  <!-- Burger Icon Graphic -->
+  <g filter="url(#shadow)">
+    <!-- Top Bun -->
+    <path d="M72 108 C72 80, 168 80, 168 108 C168 111, 164 114, 156 114 L84 114 C76 114, 72 111, 72 108 Z" fill="url(#bunGrad)"/>
+    <!-- Sesame Seeds -->
+    <ellipse cx="94" cy="95" rx="2.5" ry="1.2" fill="#fef3c7" transform="rotate(-15 94 95)"/>
+    <ellipse cx="114" cy="89" rx="2.5" ry="1.2" fill="#fef3c7" transform="rotate(5 114 89)"/>
+    <ellipse cx="134" cy="93" rx="2.5" ry="1.2" fill="#fef3c7" transform="rotate(20 134 93)"/>
+    <ellipse cx="104" cy="103" rx="2.5" ry="1.2" fill="#fef3c7" transform="rotate(-5 104 103)"/>
+    <ellipse cx="144" cy="102" rx="2.5" ry="1.2" fill="#fef3c7" transform="rotate(15 144 102)"/>
+    <ellipse cx="124" cy="99" rx="2.5" ry="1.2" fill="#fef3c7" transform="rotate(-10 124 99)"/>
+
+    <!-- Fresh Lettuce Layer -->
+    <path d="M68 116 C73 113, 78 119, 83 116 C88 113, 93 119, 98 116 C103 113, 108 119, 113 116 C118 113, 123 119, 128 116 C133 113, 138 119, 143 116 C148 113, 153 119, 158 116 C163 113, 168 118, 172 116 L170 121 C165 123, 161 120, 156 122 C151 124, 146 120, 141 122 C136 124, 131 120, 126 122 C121 124, 116 120, 111 122 C106 124, 101 120, 96 122 C91 124, 86 120, 81 122 C76 124, 72 121, 68 121 Z" fill="#22c55e"/>
+
+    <!-- Melted Cheddar Cheese Drip -->
+    <path d="M72 123 L168 123 L162 131 L145 131 L138 141 L130 131 L110 131 L102 139 L96 131 L78 131 Z" fill="#ffc700"/>
+
+    <!-- Beef Patty -->
+    <rect x="70" y="129" width="100" height="15" rx="7.5" fill="url(#pattyGrad)"/>
+    <!-- Grill marks -->
+    <line x1="86" y1="131" x2="94" y2="142" stroke="#250e06" stroke-width="2.5" stroke-linecap="round"/>
+    <line x1="106" y1="131" x2="114" y2="142" stroke="#250e06" stroke-width="2.5" stroke-linecap="round"/>
+    <line x1="126" y1="131" x2="134" y2="142" stroke="#250e06" stroke-width="2.5" stroke-linecap="round"/>
+    <line x1="146" y1="131" x2="154" y2="142" stroke="#250e06" stroke-width="2.5" stroke-linecap="round"/>
+
+    <!-- Bottom Bun -->
+    <path d="M74 146 C74 146, 75 158, 88 160 L152 160 C165 158, 166 146, 166 146 Z" fill="url(#bunGrad)"/>
+  </g>
+
+  <!-- Circular Ribbons / Star Accents -->
+  <polygon points="46,120 50,113 58,113 52,118 54,126 47,121 40,126 42,118 36,113 44,113" fill="#ffc700"/>
+  <polygon points="194,120 198,113 206,113 200,118 202,126 195,121 188,126 190,118 184,113 192,113" fill="#ffc700"/>
+
+  <!-- Brand Typography -->
+  <text x="120" y="185" text-anchor="middle" font-family="'Archivo Black', 'Arial Black', sans-serif" font-size="19" font-weight="900" fill="#ffffff" letter-spacing="2.5">TERRY</text>
+  <text x="120" y="206" text-anchor="middle" font-family="'Archivo Black', 'Arial Black', sans-serif" font-size="20" font-weight="900" fill="#ffc700" letter-spacing="3.5">CORNER</text>
+  <text x="120" y="222" text-anchor="middle" font-family="'Inter', sans-serif" font-size="7.5" font-weight="700" fill="#ffffff" opacity="0.85" letter-spacing="2">MADE FOR THE CRAVE</text>
+</svg>

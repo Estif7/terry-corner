@@ -1,0 +1,115 @@
+@use '../../../../../styles/tokens' as t;
+@use '../../../../../styles/mixins' as m;
+
+.tc-tracking {
+  max-width: 560px;
+  margin: 0 auto;
+  padding: t.$space-8 t.$space-4 t.$space-16;
+
+  h1 { text-align: center; margin-bottom: t.$space-6; }
+
+  &__search {
+    display: flex;
+    gap: t.$space-3;
+    margin-bottom: t.$space-8;
+
+    input {
+      @include m.touch-target;
+      flex: 1;
+      padding: t.$space-3 t.$space-4;
+      border-radius: t.$radius-pill;
+      border: 2px solid t.$color-border;
+    }
+  }
+
+  &__status-text {
+    text-align: center;
+    color: t.$color-text-muted;
+  }
+
+  &__result {
+    background: t.$color-surface;
+    border-radius: t.$radius-md;
+    padding: t.$space-8;
+    box-shadow: t.$shadow-sm;
+
+    h2 { text-align: center; }
+  }
+
+  &__total {
+    text-align: center;
+    color: t.$color-text-muted;
+    margin-bottom: t.$space-8;
+  }
+}
+
+.tc-timeline {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  &__step {
+    display: flex;
+    align-items: center;
+    gap: t.$space-4;
+    padding-bottom: t.$space-6;
+    position: relative;
+
+    &:not(:last-child)::before {
+      content: '';
+      position: absolute;
+      left: 15px;
+      top: 32px;
+      bottom: 0;
+      width: 2px;
+      background: t.$color-border;
+    }
+
+    &--complete:not(:last-child)::before {
+      background: t.$color-success;
+    }
+  }
+
+  &__marker {
+    @include m.touch-target;
+    width: 32px;
+    height: 32px;
+    min-width: 32px;
+    min-height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    background: t.$color-surface-alt;
+    color: t.$color-text-muted;
+    border: 2px solid t.$color-border;
+    z-index: 1;
+  }
+
+  &__label {
+    font-weight: 600;
+    color: t.$color-text-muted;
+  }
+
+  &__step--complete &__marker {
+    background: t.$color-success;
+    border-color: t.$color-success;
+    color: t.$color-text-inverse;
+  }
+
+  &__step--complete &__label {
+    color: t.$color-text;
+  }
+
+  &__step--active &__marker {
+    background: t.$color-accent;
+    border-color: t.$color-accent;
+    color: t.$color-primary;
+  }
+
+  &__step--active &__label {
+    color: t.$color-text;
+    font-weight: 700;
+  }
+}

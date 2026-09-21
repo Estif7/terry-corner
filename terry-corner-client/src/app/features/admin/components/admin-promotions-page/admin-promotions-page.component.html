@@ -1,0 +1,98 @@
+<section class="tc-catalog-admin">
+  <div class="tc-catalog-admin__header">
+    <h1>Promotions</h1>
+    <button type="button" class="btn btn--primary" (click)="startCreate()">ADD PROMOTION</button>
+  </div>
+
+  @if (editingId()) {
+    <form class="tc-catalog-form" [formGroup]="form" (ngSubmit)="save()">
+      <label class="tc-field">
+        <span>Name</span>
+        <input type="text" formControlName="name" placeholder="e.g. Double Burger Combo" />
+      </label>
+      <label class="tc-field">
+        <span>Discount Type</span>
+        <select formControlName="discountType">
+          <option value="Percentage">Percentage</option>
+          <option value="FixedAmount">Fixed Amount (ETB off)</option>
+        </select>
+      </label>
+      <label class="tc-field">
+        <span>Discount Value</span>
+        <input type="number" step="0.01" formControlName="discountValue" />
+      </label>
+      <label class="tc-field">
+        <span>Start</span>
+        <input type="datetime-local" formControlName="startDateUtc" />
+      </label>
+      <label class="tc-field">
+        <span>End</span>
+        <input type="datetime-local" formControlName="endDateUtc" />
+      </label>
+
+      <label class="tc-checkbox">
+        <input type="checkbox" formControlName="isFeatured" />
+        Featured (shows as Today's Special on the homepage)
+      </label>
+      <label class="tc-checkbox">
+        <input type="checkbox" formControlName="isActive" />
+        Active
+      </label>
+
+      <label class="tc-field tc-catalog-form__full-width">
+        <span>Description</span>
+        <textarea rows="2" formControlName="description"></textarea>
+      </label>
+
+      <div class="tc-topping-checklist">
+        @for (product of products(); track product.id) {
+          <label>
+            <input
+              type="checkbox"
+              [checked]="selectedProductIds().has(product.id)"
+              (change)="toggleProduct(product.id)"
+            />
+            {{ product.name }}
+          </label>
+        }
+      </div>
+
+      <div class="tc-catalog-form__actions">
+        <button type="submit" class="btn btn--primary" [disabled]="saving()">
+          {{ saving() ? 'SAVING…' : 'SAVE' }}
+        </button>
+        <button type="button" class="btn btn--outline" (click)="cancel()">CANCEL</button>
+      </div>
+    </form>
+  }
+
+  @if (loading()) {
+    <p>Loading…</p>
+  } @else {
+    <table class="tc-catalog-table">
+      <thead>
+        <tr><th>Name</th><th>Discount</th><th>Window</th><th>Active</th><th></th></tr>
+      </thead>
+      <tbody>
+        @for (promotion of promotions(); track promotion.id) {
+          <tr>
+            <td>{{ promotion.name }}</td>
+            <td>
+              @if (promotion.discountType === 'Percentage') {
+                {{ promotion.discountValue }}%
+              } @else {
+                ETB {{ promotion.discountValue | number: '1.0-2' }} off
+              }
+            </td>
+            <td>{{ promotion.startDateUtc | date: 'short' }} – {{ promotion.endDateUtc | date: 'short' }}</td>
+            <td>{{ promotion.isActive ? 'Yes' : 'No' }}</td>
+            <td class="tc-catalog-table__actions">
+              <button type="button" class="btn btn--outline" (click)="startEdit(promotion)">EDIT</button>
+              <button type="button" class="btn btn--danger" (click)="remove(promotion)">DELETE</button>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
+</section>

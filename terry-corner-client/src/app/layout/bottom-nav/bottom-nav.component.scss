@@ -1,0 +1,116 @@
+@use '../../../styles/tokens' as t;
+@use '../../../styles/mixins' as m;
+
+.tc-bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 64px;
+  background: rgba(13, 13, 13, 0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  z-index: t.$z-header;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.35);
+
+  @include m.from(md) {
+    display: none;
+  }
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    height: 100%;
+    color: rgba(255, 255, 255, 0.6);
+    text-decoration: none;
+    transition: all t.$duration-fast t.$ease-out;
+    padding: 6px 0;
+    gap: 3px;
+    position: relative;
+
+    &:hover {
+      color: t.$color-text-inverse;
+    }
+
+    &.is-active {
+      color: t.$color-accent;
+
+      .tc-bottom-nav__icon-wrap {
+        transform: translateY(-2px);
+      }
+
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: 4px;
+        width: 16px;
+        height: 3px;
+        background: t.$color-accent;
+        border-radius: t.$radius-pill;
+      }
+    }
+
+    &--call {
+      .tc-bottom-nav__icon-wrap--call {
+        background: t.$color-accent;
+        color: t.$color-primary;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 2px 8px rgba(255, 199, 0, 0.4);
+      }
+
+      &:hover {
+        color: t.$color-accent;
+      }
+    }
+  }
+
+  &__icon-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform t.$duration-fast t.$ease-out;
+    position: relative;
+
+    &--tray {
+      position: relative;
+    }
+  }
+
+  &__badge {
+    position: absolute;
+    top: -6px;
+    right: -10px;
+    background: t.$color-danger;
+    color: #fff;
+    font-size: 0.65rem;
+    font-weight: 800;
+    min-width: 17px;
+    height: 17px;
+    border-radius: t.$radius-pill;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 4px;
+    border: 1.5px solid #000;
+  }
+
+  &__label {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+}

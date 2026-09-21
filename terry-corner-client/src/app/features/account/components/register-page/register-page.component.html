@@ -1,0 +1,42 @@
+<section class="tc-auth">
+  <h1>Create Account</h1>
+
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <label class="tc-field">
+      <span>Full Name</span>
+      <input type="text" formControlName="fullName" autocomplete="name" />
+    </label>
+
+    <label class="tc-field">
+      <span>Email</span>
+      <input type="email" formControlName="email" autocomplete="email" />
+    </label>
+
+    <label class="tc-field">
+      <span>Phone Number</span>
+      <input type="tel" formControlName="phoneNumber" autocomplete="tel" />
+    </label>
+
+    <label class="tc-field">
+      <span>Password</span>
+      <input type="password" formControlName="password" autocomplete="new-password" />
+      <em class="tc-field__hint">At least 10 characters, with a number, an uppercase letter, and a symbol.</em>
+    </label>
+
+    <label class="tc-upload">
+      <input type="file" accept="image/jpeg,image/png" (change)="onPictureSelected($event)" />
+      <span>{{ selectedPicture()?.name ?? 'Add a profile picture (optional)' }}</span>
+    </label>
+    @if (pictureError()) {
+      <em class="tc-field__error">{{ pictureError() }}</em>
+    }
+
+    <button type="submit" class="btn btn--primary" [disabled]="submitting()">
+      {{ submitting() ? 'CREATING ACCOUNT…' : 'CREATE ACCOUNT' }}
+    </button>
+  </form>
+
+  <p class="tc-auth__switch">
+    Already have an account? <a routerLink="/account/login">Sign in</a>
+  </p>
+</section>

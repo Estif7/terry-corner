@@ -1,0 +1,8 @@
+<div class="tc-toast-region" role="status" aria-live="polite">
+  @for (toast of toastService.toasts(); track toast.id) {
+    <div class="tc-toast" [class]="'tc-toast--' + toast.kind">
+      <span>{{ toast.text }}</span>
+      <button type="button" (click)="toastService.dismiss(toast.id)" aria-label="Dismiss notification">&times;</button>
+    </div>
+  }
+</div>

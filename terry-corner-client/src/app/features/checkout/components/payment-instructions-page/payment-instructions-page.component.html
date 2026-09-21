@@ -1,0 +1,39 @@
+<section class="tc-payment">
+  <p class="tc-payment__eyebrow">Complete Your Payment</p>
+  <h1>Order {{ orderNumber() }}</h1>
+
+  @if (total() !== null) {
+    <p class="tc-payment__amount">
+      Amount Due: <strong>ETB {{ total() | number: '1.0-2' }}</strong>
+    </p>
+  }
+
+  @if (loading()) {
+    <p>Loading payment options…</p>
+  } @else if (paymentMethods().length === 0) {
+    <p class="tc-payment__empty">No payment methods are configured yet. Please contact the restaurant directly.</p>
+  } @else {
+    <div class="tc-payment__methods">
+      @for (method of paymentMethods(); track method.id) {
+        <div class="tc-payment__method">
+          <h2>{{ method.methodName }}</h2>
+          <dl>
+            <dt>Account Name</dt>
+            <dd>{{ method.accountName }}</dd>
+            <dt>Account / Reference</dt>
+            <dd>{{ method.accountNumberOrIdentifier }}</dd>
+            @if (method.phoneNumber) {
+              <dt>Phone</dt>
+              <dd>{{ method.phoneNumber }}</dd>
+            }
+          </dl>
+          <p class="tc-payment__instructions">{{ method.instructions }}</p>
+        </div>
+      }
+    </div>
+  }
+
+  <button type="button" class="btn btn--primary tc-payment__cta" (click)="goToReceiptUpload()">
+    I HAVE COMPLETED PAYMENT
+  </button>
+</section>

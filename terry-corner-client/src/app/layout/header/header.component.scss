@@ -1,0 +1,111 @@
+@use '../../../styles/tokens' as t;
+@use '../../../styles/mixins' as m;
+
+.tc-header {
+  position: sticky;
+  top: 0;
+  z-index: t.$z-header;
+  background: rgba(13, 13, 13, 0.96);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: t.$color-text-inverse;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+
+  &__bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: t.$space-2 t.$space-4;
+    max-width: 1280px;
+    margin: 0 auto;
+
+    @include m.from(md) {
+      padding: t.$space-3 t.$space-6;
+    }
+  }
+
+  &__brand {
+    display: flex;
+    align-items: center;
+    gap: t.$space-3;
+    text-decoration: none;
+    color: t.$color-text-inverse;
+  }
+
+  &__logo-img {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    object-fit: contain;
+    flex-shrink: 0;
+    transition: transform t.$duration-fast;
+
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
+
+  &__brand-name {
+    font-family: t.$font-display;
+    font-size: 1.25rem;
+    letter-spacing: 0.03em;
+    line-height: 1.1;
+    color: t.$color-text-inverse;
+
+    span { color: t.$color-accent; }
+  }
+
+  &__nav {
+    display: none;
+    gap: t.$space-6;
+
+    @include m.from(md) {
+      display: flex;
+      align-items: center;
+    }
+
+    a {
+      font-weight: 600;
+      font-size: t.$fs-sm;
+      color: rgba(255, 255, 255, 0.75);
+      padding: 4px 0;
+      border-bottom: 2px solid transparent;
+      transition: all t.$duration-fast t.$ease-out;
+
+      &:hover, &.is-active {
+        color: t.$color-text-inverse;
+        border-color: t.$color-accent;
+      }
+    }
+  }
+
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: t.$space-3;
+  }
+
+  &__call-btn {
+    display: none;
+    padding: t.$space-2 t.$space-3;
+    font-size: t.$fs-xs;
+    border-color: rgba(255, 255, 255, 0.25);
+    color: t.$color-text-inverse;
+
+    &:hover {
+      border-color: t.$color-accent;
+      color: t.$color-accent;
+    }
+
+    @include m.from(sm) {
+      display: inline-flex;
+    }
+  }
+
+  &__cta {
+    padding: t.$space-2 t.$space-4;
+    font-size: t.$fs-xs;
+    font-weight: 700;
+  }
+}

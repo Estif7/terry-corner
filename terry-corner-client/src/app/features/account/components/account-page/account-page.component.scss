@@ -1,0 +1,127 @@
+@use '../../../../../styles/tokens' as t;
+@use '../../../../../styles/mixins' as m;
+
+.tc-account {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: t.$space-8 t.$space-4 t.$space-16;
+
+  h1 { margin-bottom: t.$space-6; }
+
+  &__muted {
+    color: t.$color-text-muted;
+    font-size: t.$fs-sm;
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: t.$space-3;
+    max-width: 320px;
+  }
+
+  &__actions {
+    display: flex;
+    gap: t.$space-3;
+  }
+}
+
+.tc-panel {
+  background: t.$color-surface;
+  border-radius: t.$radius-md;
+  padding: t.$space-6;
+  box-shadow: t.$shadow-sm;
+  margin-bottom: t.$space-6;
+
+  h2 { font-size: t.$fs-lg; margin-bottom: t.$space-3; }
+  p { margin: 0 0 t.$space-1; }
+}
+
+.tc-account__avatar-row {
+  display: flex;
+  align-items: center;
+  gap: t.$space-4;
+  margin-bottom: t.$space-4;
+}
+
+.tc-account__avatar {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+
+  &--placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: t.$color-primary;
+    color: t.$color-text-inverse;
+    font-family: t.$font-display;
+    font-size: t.$fs-xl;
+  }
+}
+
+.tc-account__avatar-actions {
+  display: flex;
+  flex-direction: column;
+  gap: t.$space-2;
+}
+
+.tc-account__avatar-upload {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+
+  input[type='file'] {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    cursor: pointer;
+  }
+}
+
+.tc-order-history {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  li {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: t.$space-3;
+    padding: t.$space-3 0;
+    border-bottom: 1px solid t.$color-border;
+
+    &:last-child { border-bottom: none; }
+  }
+
+  &__meta {
+    display: flex;
+    gap: t.$space-4;
+    font-size: t.$fs-sm;
+    color: t.$color-text-muted;
+  }
+}
+
+.tc-field {
+  display: flex;
+  flex-direction: column;
+  gap: t.$space-1;
+  font-weight: 600;
+  font-size: t.$fs-sm;
+
+  input {
+    @include m.touch-target;
+    padding: t.$space-3;
+    border-radius: t.$radius-sm;
+    border: 2px solid t.$color-border;
+    font-family: t.$font-body;
+    font-weight: 400;
+    font-size: t.$fs-base;
+
+    &:focus { border-color: t.$color-primary; }
+  }
+}

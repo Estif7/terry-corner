@@ -1,0 +1,66 @@
+@use '../../../../../styles/tokens' as t;
+
+.tc-overview {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: t.$space-8 t.$space-4 t.$space-16;
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: t.$space-4;
+    margin-bottom: t.$space-8;
+  }
+
+  &__subheading {
+    font-size: t.$fs-lg;
+    margin-bottom: t.$space-4;
+  }
+
+  &__empty {
+    color: t.$color-text-muted;
+  }
+}
+
+.tc-stat-card {
+  background: t.$color-surface;
+  border-radius: t.$radius-md;
+  padding: t.$space-6;
+  box-shadow: t.$shadow-sm;
+  display: flex;
+  flex-direction: column;
+  gap: t.$space-2;
+
+  &--accent {
+    background: t.$color-accent;
+  }
+
+  &__label {
+    font-size: t.$fs-sm;
+    color: t.$color-text-muted;
+    font-weight: 600;
+  }
+
+  &__value {
+    font-family: t.$font-display;
+    font-size: t.$fs-2xl;
+  }
+}
+
+.tc-popular-list {
+  list-style: decimal;
+  padding-left: t.$space-6;
+  margin: 0;
+  background: t.$color-surface;
+  border-radius: t.$radius-md;
+  box-shadow: t.$shadow-sm;
+
+  li {
+    display: flex;
+    justify-content: space-between;
+    padding: t.$space-3 t.$space-4 t.$space-3 t.$space-2;
+    border-bottom: 1px solid t.$color-border;
+
+    &:last-child { border-bottom: none; }
+  }
+}

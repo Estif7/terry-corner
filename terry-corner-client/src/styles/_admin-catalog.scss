@@ -1,0 +1,243 @@
+@use 'tokens' as t;
+@use 'mixins' as m;
+
+.tc-catalog-admin {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: t.$space-8 t.$space-4 t.$space-16;
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: t.$space-6;
+  }
+}
+
+.tc-catalog-form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: t.$space-4;
+  background: t.$color-surface;
+  padding: t.$space-6;
+  border-radius: t.$radius-md;
+  box-shadow: t.$shadow-sm;
+  margin-bottom: t.$space-8;
+  align-items: end;
+
+  &__actions {
+    display: flex;
+    gap: t.$space-3;
+    grid-column: 1 / -1;
+  }
+
+  &__full-width {
+    grid-column: 1 / -1;
+  }
+}
+
+.tc-catalog-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: t.$color-surface;
+  border-radius: t.$radius-md;
+  overflow: hidden;
+  box-shadow: t.$shadow-sm;
+
+  th, td {
+    text-align: left;
+    padding: t.$space-3 t.$space-4;
+    font-size: t.$fs-sm;
+  }
+
+  thead {
+    background: t.$color-surface-alt;
+
+    th { font-weight: 700; text-transform: uppercase; font-size: t.$fs-xs; letter-spacing: 0.04em; }
+  }
+
+  tbody tr {
+    border-top: 1px solid t.$color-border;
+  }
+
+  &__actions {
+    display: flex;
+    gap: t.$space-2;
+
+    .btn {
+      padding: t.$space-1 t.$space-3;
+      font-size: t.$fs-xs;
+    }
+  }
+}
+
+.tc-field {
+  display: flex;
+  flex-direction: column;
+  gap: t.$space-1;
+  font-weight: 600;
+  font-size: t.$fs-sm;
+
+  input, select, textarea {
+    @include m.touch-target;
+    padding: t.$space-3;
+    border-radius: t.$radius-sm;
+    border: 2px solid t.$color-border;
+    font-family: t.$font-body;
+    font-weight: 400;
+    font-size: t.$fs-base;
+
+    &:focus { border-color: t.$color-primary; }
+  }
+
+  &__error {
+    color: t.$color-danger;
+    font-style: normal;
+    font-weight: 400;
+    font-size: t.$fs-xs;
+  }
+}
+
+.tc-upload {
+  @include m.touch-target;
+  display: inline-flex;
+  align-items: center;
+  gap: t.$space-2;
+  padding: t.$space-3 t.$space-4;
+  border: 2px dashed t.$color-border;
+  border-radius: t.$radius-md;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: t.$fs-sm;
+  color: t.$color-text-muted;
+  white-space: nowrap;
+
+  input[type='file'] {
+    display: none;
+  }
+
+  &:hover {
+    border-color: t.$color-primary;
+    color: t.$color-primary;
+  }
+}
+
+.tc-image-field {
+  display: flex;
+  align-items: center;
+  gap: t.$space-3;
+  flex-wrap: wrap;
+
+  &__preview {
+    width: 56px;
+    height: 56px;
+    border-radius: t.$radius-sm;
+    object-fit: cover;
+    flex-shrink: 0;
+  }
+
+  &__url {
+    flex: 1;
+    min-width: 200px;
+    padding: t.$space-3;
+    border-radius: t.$radius-sm;
+    border: 2px solid t.$color-border;
+    font-size: t.$fs-sm;
+  }
+}
+
+.tc-checkbox {
+  display: flex;
+  align-items: center;
+  gap: t.$space-2;
+  font-weight: 600;
+  font-size: t.$fs-sm;
+
+  input { width: 20px; height: 20px; }
+}
+
+.tc-topping-checklist {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: t.$space-3;
+
+  label {
+    display: flex;
+    align-items: center;
+    gap: t.$space-2;
+    font-size: t.$fs-sm;
+    font-weight: 400;
+    background: t.$color-surface-alt;
+    padding: t.$space-2 t.$space-3;
+    border-radius: t.$radius-pill;
+  }
+}
+
+.tc-overview__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: t.$space-4;
+}
+
+.tc-stat-card {
+  background: t.$color-surface;
+  border-radius: t.$radius-md;
+  padding: t.$space-6;
+  box-shadow: t.$shadow-sm;
+  display: flex;
+  flex-direction: column;
+  gap: t.$space-2;
+
+  &--accent {
+    background: t.$color-accent;
+  }
+
+  &__label {
+    font-size: t.$fs-sm;
+    color: t.$color-text-muted;
+    font-weight: 600;
+  }
+
+  &__value {
+    font-family: t.$font-display;
+    font-size: t.$fs-2xl;
+  }
+}
+
+.tc-users-admin {
+  &__stats {
+    margin-bottom: t.$space-8;
+  }
+
+  &__avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+
+    &--placeholder {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: t.$color-primary;
+      color: t.$color-text-inverse;
+      font-weight: 700;
+      font-family: t.$font-display;
+    }
+  }
+
+  &__edit-form {
+    display: flex;
+    flex-direction: column;
+    gap: t.$space-2;
+
+    input {
+      padding: t.$space-2;
+      border-radius: t.$radius-sm;
+      border: 2px solid t.$color-border;
+      font-size: t.$fs-sm;
+    }
+  }
+}

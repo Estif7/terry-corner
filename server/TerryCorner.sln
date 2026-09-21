@@ -1,0 +1,52 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.35027.167
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TerryCorner.Api", "src\TerryCorner.Api\TerryCorner.Api.csproj", "{BD8AE91D-8A7D-43E5-BB9C-37859304025E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TerryCorner.Application", "src\TerryCorner.Application\TerryCorner.Application.csproj", "{3113E41F-B786-46FA-B9CC-A1B9F20960BB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TerryCorner.Domain", "src\TerryCorner.Domain\TerryCorner.Domain.csproj", "{162E6244-5A50-4FBA-8A1C-51FC84A1B21F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TerryCorner.Infrastructure", "src\TerryCorner.Infrastructure\TerryCorner.Infrastructure.csproj", "{4178A712-204A-40B8-8AE0-1CF0AA75E12F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TerryCorner.UnitTests", "tests\TerryCorner.UnitTests\TerryCorner.UnitTests.csproj", "{7899353B-F4B1-4EA1-B641-9FB0EBDAE97C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TerryCorner.IntegrationTests", "tests\TerryCorner.IntegrationTests\TerryCorner.IntegrationTests.csproj", "{015E1212-F4AE-469E-B0B2-C668B07A1C32}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BD8AE91D-8A7D-43E5-BB9C-37859304025E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD8AE91D-8A7D-43E5-BB9C-37859304025E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD8AE91D-8A7D-43E5-BB9C-37859304025E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD8AE91D-8A7D-43E5-BB9C-37859304025E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3113E41F-B786-46FA-B9CC-A1B9F20960BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3113E41F-B786-46FA-B9CC-A1B9F20960BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3113E41F-B786-46FA-B9CC-A1B9F20960BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3113E41F-B786-46FA-B9CC-A1B9F20960BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{162E6244-5A50-4FBA-8A1C-51FC84A1B21F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{162E6244-5A50-4FBA-8A1C-51FC84A1B21F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{162E6244-5A50-4FBA-8A1C-51FC84A1B21F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{162E6244-5A50-4FBA-8A1C-51FC84A1B21F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4178A712-204A-40B8-8AE0-1CF0AA75E12F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4178A712-204A-40B8-8AE0-1CF0AA75E12F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4178A712-204A-40B8-8AE0-1CF0AA75E12F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4178A712-204A-40B8-8AE0-1CF0AA75E12F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7899353B-F4B1-4EA1-B641-9FB0EBDAE97C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7899353B-F4B1-4EA1-B641-9FB0EBDAE97C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7899353B-F4B1-4EA1-B641-9FB0EBDAE97C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7899353B-F4B1-4EA1-B641-9FB0EBDAE97C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{015E1212-F4AE-469E-B0B2-C668B07A1C32}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{015E1212-F4AE-469E-B0B2-C668B07A1C32}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{015E1212-F4AE-469E-B0B2-C668B07A1C32}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{015E1212-F4AE-469E-B0B2-C668B07A1C32}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

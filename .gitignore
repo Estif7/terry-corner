@@ -1,0 +1,29 @@
+# Node
+node_modules/
+**/node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Angular
+.angular/
+**/.angular/
+dist/
+**/dist/
+out-tsc/
+bazel-out/
+
+# .NET / C#
+bin/
+obj/
+*.user
+*.suo
+
+# Vercel
+.vercel/
+
+# Environment & IDE
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

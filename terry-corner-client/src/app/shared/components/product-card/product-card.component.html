@@ -1,0 +1,48 @@
+<article
+  class="tc-card"
+  [class.tc-card--sold-out]="!product.isAvailable"
+  (click)="onSelect()"
+  tabindex="0"
+  (keydown.enter)="onSelect()"
+  role="button"
+  [attr.aria-label]="product.name"
+>
+  <div class="tc-card__image-wrap">
+    @if (product.imageUrl) {
+      <img
+        [src]="product.imageUrl | resolveImageUrl"
+        [alt]="product.name"
+        loading="lazy"
+        class="tc-card__img"
+      />
+    }
+    @if (product.isPopular && product.isAvailable) {
+      <span class="tc-card__badge tc-card__badge--popular">Popular</span>
+    }
+    @if (!product.isAvailable) {
+      <span class="tc-card__badge tc-card__badge--sold-out">Sold Out</span>
+    }
+  </div>
+
+  <div class="tc-card__body">
+    <div class="tc-card__meta">
+      <h3 class="tc-card__name">{{ product.name }}</h3>
+      <span class="tc-card__price">ETB {{ product.price | number: '1.0-0' }}</span>
+    </div>
+
+    <p class="tc-card__description">{{ product.description }}</p>
+
+    <div class="tc-card__footer">
+      <span class="tc-card__tag">{{ product.categoryName }}</span>
+      <button
+        type="button"
+        class="btn btn--primary tc-card__btn"
+        [disabled]="!product.isAvailable"
+        (click)="$event.stopPropagation(); onSelect()"
+        aria-label="Customize and order"
+      >
+        {{ product.isAvailable ? 'Customize' : 'Sold Out' }}
+      </button>
+    </div>
+  </div>
+</article>

@@ -1,0 +1,73 @@
+<section class="tc-catalog-admin">
+  <div class="tc-catalog-admin__header">
+    <h1>Categories</h1>
+    <button type="button" class="btn btn--primary" (click)="startCreate()">ADD CATEGORY</button>
+  </div>
+
+  @if (editingId()) {
+    <form class="tc-catalog-form" [formGroup]="form" (ngSubmit)="save()">
+      <label class="tc-field">
+        <span>Name</span>
+        <input type="text" formControlName="name" />
+      </label>
+      <label class="tc-field">
+        <span>Description</span>
+        <input type="text" formControlName="description" />
+      </label>
+      <div class="tc-field tc-catalog-form__full-width">
+        <span>Category Photo</span>
+        <div class="tc-image-field">
+          @if (form.controls.imageUrl.value) {
+            <img class="tc-image-field__preview" [src]="form.controls.imageUrl.value | resolveImageUrl" alt="" />
+          }
+          <label class="tc-upload">
+            <input type="file" accept="image/jpeg,image/png,image/webp" (change)="onImageSelected($event)" [disabled]="uploadingImage()" />
+            <span>{{ uploadingImage() ? 'UPLOADING…' : 'UPLOAD PHOTO' }}</span>
+          </label>
+          <input type="text" class="tc-image-field__url" formControlName="imageUrl" placeholder="or paste an image URL" />
+        </div>
+        @if (imageError()) {
+          <em class="tc-field__error">{{ imageError() }}</em>
+        }
+      </div>
+      <label class="tc-field">
+        <span>Sort Order</span>
+        <input type="number" formControlName="sortOrder" />
+      </label>
+      <label class="tc-checkbox">
+        <input type="checkbox" formControlName="isActive" />
+        Active
+      </label>
+
+      <div class="tc-catalog-form__actions">
+        <button type="submit" class="btn btn--primary" [disabled]="saving()">
+          {{ saving() ? 'SAVING…' : 'SAVE' }}
+        </button>
+        <button type="button" class="btn btn--outline" (click)="cancel()">CANCEL</button>
+      </div>
+    </form>
+  }
+
+  @if (loading()) {
+    <p>Loading…</p>
+  } @else {
+    <table class="tc-catalog-table">
+      <thead>
+        <tr><th>Name</th><th>Sort</th><th>Active</th><th></th></tr>
+      </thead>
+      <tbody>
+        @for (category of categories(); track category.id) {
+          <tr>
+            <td>{{ category.name }}</td>
+            <td>{{ category.sortOrder }}</td>
+            <td>{{ category.isActive ? 'Yes' : 'No' }}</td>
+            <td class="tc-catalog-table__actions">
+              <button type="button" class="btn btn--outline" (click)="startEdit(category)">EDIT</button>
+              <button type="button" class="btn btn--danger" (click)="remove(category)">DELETE</button>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
+</section>

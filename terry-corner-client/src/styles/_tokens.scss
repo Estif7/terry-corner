@@ -1,0 +1,90 @@
+// =============================================================
+// TERRY CORNER — DESIGN TOKENS
+// "MADE FOR THE CRAVE"
+// =============================================================
+
+// ---- Brand colors -------------------------------------------------
+$tc-black: #0d0d0d;
+$tc-black-soft: #1a1a1a;
+$tc-yellow: #ffc700;
+$tc-yellow-dark: #e6b200;
+$tc-white: #ffffff;
+$tc-off-white: #f7f5f2;
+$tc-red: #e11d2e;
+$tc-red-dark: #b91525;
+
+// Neutral scale (built around the black, used for surfaces/borders/text)
+$tc-gray-900: #121212;
+$tc-gray-700: #3a3a3a;
+$tc-gray-500: #6b6b6b;
+$tc-gray-300: #cfcfcf;
+$tc-gray-100: #efefef;
+
+// Semantic aliases — reference these in components, not raw colors
+$color-primary: $tc-black;
+$color-accent: $tc-yellow;
+$color-accent-hover: $tc-yellow-dark;
+$color-danger: $tc-red;
+$color-danger-hover: $tc-red-dark;
+$color-surface: $tc-white;
+$color-surface-alt: $tc-off-white;
+$color-text: $tc-black;
+$color-text-inverse: $tc-white;
+$color-text-muted: $tc-gray-500;
+$color-border: $tc-gray-100;
+
+// Status colors (never rely on color alone — always paired with icon/label)
+$color-success: #1c9a5b;
+$color-pending: $tc-gray-500;
+$color-active: $tc-yellow-dark;
+
+// ---- Typography -----------------------------------------------------
+$font-display: 'Archivo Black', 'Arial Black', sans-serif; // headlines / CTAs
+$font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+$fs-xs: 0.75rem;
+$fs-sm: 0.875rem;
+$fs-base: 1rem;
+$fs-lg: 1.125rem;
+$fs-xl: 1.5rem;
+$fs-2xl: 2rem;
+$fs-3xl: 2.75rem;
+$fs-4xl: 3.75rem;
+
+// ---- Spacing scale (4px base) ---------------------------------------
+$space-1: 0.25rem;
+$space-2: 0.5rem;
+$space-3: 0.75rem;
+$space-4: 1rem;
+$space-6: 1.5rem;
+$space-8: 2rem;
+$space-12: 3rem;
+$space-16: 4rem;
+$space-24: 6rem;
+
+// ---- Radii / shadows / motion ---------------------------------------
+$radius-sm: 8px;
+$radius-md: 14px;
+$radius-lg: 22px;
+$radius-pill: 999px;
+
+$shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
+$shadow-md: 0 8px 24px rgba(0, 0, 0, 0.12);
+$shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.18);
+$shadow-accent: 0 8px 20px rgba(255, 199, 0, 0.35);
+
+$ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+$duration-fast: 150ms;
+$duration-base: 250ms;
+
+// ---- Breakpoints (mobile-first) --------------------------------------
+$bp-sm: 480px;
+$bp-md: 768px;
+$bp-lg: 1024px;
+$bp-xl: 1280px;
+
+// ---- Z-index scale ----------------------------------------------------
+$z-header: 100;
+$z-drawer: 200;
+$z-modal: 300;
+$z-toast: 400;

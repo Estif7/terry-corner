@@ -1,0 +1,105 @@
+@use 'tokens' as t;
+@use 'mixins' as m;
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  @media (prefers-reduced-motion: reduce) {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  margin: 0;
+  font-family: t.$font-body;
+  color: t.$color-text;
+  background: t.$color-surface-alt;
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.5;
+}
+
+h1, h2, h3, h4 {
+  font-family: t.$font-display;
+  line-height: 1.1;
+  margin: 0 0 t.$space-4;
+  letter-spacing: -0.01em;
+}
+
+h1 { font-size: t.$fs-3xl; }
+h2 { font-size: t.$fs-2xl; }
+h3 { font-size: t.$fs-xl; }
+
+p { margin: 0 0 t.$space-4; color: t.$color-text; }
+
+a { color: inherit; text-decoration: none; }
+
+button {
+  font-family: t.$font-body;
+  cursor: pointer;
+}
+
+img { max-width: 100%; display: block; }
+
+// Global focus visibility — never remove outlines without replacing them
+:focus-visible {
+  @include m.focus-ring;
+}
+
+// Utility: screen-reader only content
+.sr-only {
+  @include m.visually-hidden;
+}
+
+// ---- Reusable brand button styles ----------------------------------
+.btn {
+  @include m.touch-target;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: t.$space-2;
+  padding: t.$space-3 t.$space-6;
+  border-radius: t.$radius-pill;
+  border: 2px solid transparent;
+  font-weight: 700;
+  font-size: t.$fs-base;
+  transition: transform t.$duration-fast t.$ease-out,
+              box-shadow t.$duration-fast t.$ease-out,
+              background-color t.$duration-fast t.$ease-out;
+
+  @include m.motion-safe {
+    &:active { transform: scale(0.97); }
+  }
+
+  &--primary {
+    background: t.$color-accent;
+    color: t.$color-primary;
+    box-shadow: t.$shadow-accent;
+    &:hover { background: t.$color-accent-hover; }
+  }
+
+  &--dark {
+    background: t.$color-primary;
+    color: t.$color-text-inverse;
+    &:hover { background: t.$tc-black-soft; }
+  }
+
+  &--outline {
+    background: transparent;
+    border-color: t.$color-primary;
+    color: t.$color-primary;
+    &:hover { background: t.$color-primary; color: t.$color-text-inverse; }
+  }
+
+  &--danger {
+    background: t.$color-danger;
+    color: t.$color-text-inverse;
+    &:hover { background: t.$color-danger-hover; }
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    box-shadow: none;
+  }
+}
