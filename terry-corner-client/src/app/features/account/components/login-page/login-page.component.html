@@ -1,23 +1,47 @@
-<section class="tc-auth">
-  <h1>Sign In</h1>
+<div class="tc-auth-wrapper">
+  <div class="tc-auth-card">
+    <div class="tc-auth-card__logo-wrap">
+      <img src="/logo.png" alt="Terry Corner Logo" width="64" height="64" />
+      <h1>TERRY <span>ADMIN</span></h1>
+      <p>Sign in to manage menu items, prices, and availability.</p>
+    </div>
 
-  <form [formGroup]="form" (ngSubmit)="submit()">
-    <label class="tc-field">
-      <span>Email</span>
-      <input type="email" formControlName="email" autocomplete="email" />
-    </label>
+    <form [formGroup]="form" (ngSubmit)="submit()" class="tc-auth-form">
+      <div class="tc-field">
+        <label for="emailInput">Admin Email</label>
+        <input
+          id="emailInput"
+          type="email"
+          formControlName="email"
+          autocomplete="email"
+          placeholder="admin@terrycorner.com"
+        />
+        @if (form.controls.email.touched && form.controls.email.errors) {
+          <span class="tc-field__error">Please enter a valid email address.</span>
+        }
+      </div>
 
-    <label class="tc-field">
-      <span>Password</span>
-      <input type="password" formControlName="password" autocomplete="current-password" />
-    </label>
+      <div class="tc-field">
+        <label for="pwdInput">Password</label>
+        <input
+          id="pwdInput"
+          type="password"
+          formControlName="password"
+          autocomplete="current-password"
+          placeholder="••••••••"
+        />
+        @if (form.controls.password.touched && form.controls.password.errors) {
+          <span class="tc-field__error">Password is required.</span>
+        }
+      </div>
 
-    <button type="submit" class="btn btn--primary" [disabled]="submitting()">
-      {{ submitting() ? 'SIGNING IN…' : 'SIGN IN' }}
-    </button>
-  </form>
+      <button type="submit" class="btn btn--primary tc-auth-btn" [disabled]="submitting()">
+        {{ submitting() ? 'SIGNING IN…' : 'SIGN IN' }}
+      </button>
+    </form>
 
-  <p class="tc-auth__switch">
-    New here? <a routerLink="/account/register">Create an account</a>
-  </p>
-</section>
+    <div class="tc-auth-card__footer">
+      <a routerLink="/" class="tc-auth-card__back-link">&larr; Back to Public Store</a>
+    </div>
+  </div>
+</div>

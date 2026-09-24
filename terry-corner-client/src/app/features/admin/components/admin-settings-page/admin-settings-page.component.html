@@ -1,0 +1,88 @@
+<div class="tc-admin-page">
+  <div class="tc-admin-page__header">
+    <div>
+      <h1>Supabase Database Setup</h1>
+      <p class="tc-admin-page__subtitle">
+        Connect Terry Corner to your free Supabase cloud database to manage meals, prices, and availability in real-time.
+      </p>
+    </div>
+
+    <div class="tc-status-pill" [class.tc-status-pill--active]="isConnected()">
+      <span class="tc-status-pill__dot"></span>
+      <span>{{ isConnected() ? 'Connected to Cloud DB' : 'Fallback / Static Mode' }}</span>
+    </div>
+  </div>
+
+  <div class="tc-settings-grid">
+    <!-- Connection Form -->
+    <div class="tc-card-box">
+      <h2>Project API Credentials</h2>
+      <p>Enter the credentials from your Supabase project dashboard (<strong>Project Settings &rarr; API</strong>).</p>
+
+      <div class="tc-form-group">
+        <label for="sbUrl">Supabase Project URL</label>
+        <input
+          id="sbUrl"
+          type="url"
+          placeholder="https://xyzcompany.supabase.co"
+          [ngModel]="url()"
+          (ngModelChange)="url.set($event)"
+        />
+      </div>
+
+      <div class="tc-form-group">
+        <label for="sbKey">Supabase Anon Public Key</label>
+        <textarea
+          id="sbKey"
+          rows="3"
+          placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+          [ngModel]="anonKey()"
+          (ngModelChange)="anonKey.set($event)"
+        ></textarea>
+      </div>
+
+      @if (statusMessage()) {
+        <div class="tc-status-box" [class.tc-status-box--success]="isConnected()">
+          {{ statusMessage() }}
+        </div>
+      }
+
+      <div class="tc-card-box__actions">
+        <button type="button" class="btn btn--primary" (click)="save()" [disabled]="testing()">
+          {{ testing() ? 'Saving & Testing...' : 'Save & Connect' }}
+        </button>
+        <button type="button" class="btn btn--outline" (click)="testConnection()" [disabled]="testing()">
+          Test Connection
+        </button>
+        @if (isConnected()) {
+          <button type="button" class="btn btn--outline tc-btn--danger" (click)="disconnect()">
+            Disconnect
+          </button>
+        }
+      </div>
+    </div>
+
+    <!-- Quick Instructions -->
+    <div class="tc-card-box tc-card-box--info">
+      <h2>Quick 2-Minute Setup Guide</h2>
+      <ol class="tc-steps-list">
+        <li>
+          <strong>Create Free Account:</strong> Go to
+          <a href="https://supabase.com" target="_blank" rel="noopener">supabase.com</a> and create a new free project.
+        </li>
+        <li>
+          <strong>Run Database Setup:</strong> In your Supabase dashboard, click <strong>SQL Editor</strong> &rarr; <strong>New Query</strong>.
+        </li>
+        <li>
+          <strong>Paste Schema:</strong> Open the file <code>supabase-schema.sql</code> located in your project root, copy the entire SQL script, paste it into the editor, and click <strong>Run</strong>.
+          <p class="tc-hint">
+            (This automatically creates all 5 tables, security rules, and pre-seeds all 45 Terry Corner meals with current prices).
+          </p>
+        </li>
+        <li>
+          <strong>Copy Credentials:</strong> Go to <strong>Project Settings &rarr; API</strong>, copy the <strong>Project URL</strong> and <strong>anon public key</strong>, paste them in the form on the left, and click <strong>Save &amp; Connect</strong>!
+        </li>
+      </ol>
+    </div>
+  </div>
+</div>

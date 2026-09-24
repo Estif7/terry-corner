@@ -1,12 +1,12 @@
 import { Component, inject, signal } from '@angular/core';
-import { Router, RouterLink, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../../../../core/services/auth.service';
 
 @Component({
   selector: 'tc-login-page',
   standalone: true,
-  imports: [ReactiveFormsModule, RouterLink],
+  imports: [ReactiveFormsModule],
   templateUrl: './login-page.component.html',
   styleUrl: './login-page.component.scss',
 })
@@ -37,10 +37,8 @@ export class LoginPageComponent {
         const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl');
         if (returnUrl) {
           this.router.navigateByUrl(returnUrl);
-        } else if (this.auth.isStaffLevel()) {
-          this.router.navigate(['/admin/overview']);
         } else {
-          this.router.navigate(['/']);
+          this.router.navigate(['/admin/products']);
         }
       },
       error: () => {
