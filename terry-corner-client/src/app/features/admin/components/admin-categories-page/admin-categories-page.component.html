@@ -51,23 +51,25 @@
   @if (loading()) {
     <p>Loading…</p>
   } @else {
-    <table class="tc-catalog-table">
-      <thead>
-        <tr><th>Name</th><th>Sort</th><th>Active</th><th></th></tr>
-      </thead>
-      <tbody>
-        @for (category of categories(); track category.id) {
-          <tr>
-            <td>{{ category.name }}</td>
-            <td>{{ category.sortOrder }}</td>
-            <td>{{ category.isActive ? 'Yes' : 'No' }}</td>
-            <td class="tc-catalog-table__actions">
-              <button type="button" class="btn btn--outline" (click)="startEdit(category)">EDIT</button>
-              <button type="button" class="btn btn--danger" (click)="remove(category)">DELETE</button>
-            </td>
-          </tr>
-        }
-      </tbody>
-    </table>
+    <div class="tc-catalog-table-wrap">
+      <table class="tc-catalog-table">
+        <thead>
+          <tr><th>Name</th><th>Sort</th><th>Active</th><th></th></tr>
+        </thead>
+        <tbody>
+          @for (category of categories(); track category.id) {
+            <tr>
+              <td>{{ category.name }}</td>
+              <td>{{ category.sortOrder }}</td>
+              <td>{{ category.isActive ? 'Yes' : 'No' }}</td>
+              <td class="tc-catalog-table__actions">
+                <button type="button" class="btn btn--outline" (click)="startEdit(category)">EDIT</button>
+                <button type="button" class="btn btn--danger" (click)="remove(category)">DELETE</button>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
   }
 </section>

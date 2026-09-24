@@ -35,24 +35,26 @@
   @if (loading()) {
     <p>Loading…</p>
   } @else {
-    <table class="tc-catalog-table">
-      <thead>
-        <tr><th>Name</th><th>Price</th><th>Sort</th><th>Available</th><th></th></tr>
-      </thead>
-      <tbody>
-        @for (topping of toppings(); track topping.id) {
-          <tr>
-            <td>{{ topping.name }}</td>
-            <td>ETB {{ topping.additionalPrice | number: '1.0-2' }}</td>
-            <td>{{ topping.sortOrder }}</td>
-            <td>{{ topping.isAvailable ? 'Yes' : 'No' }}</td>
-            <td class="tc-catalog-table__actions">
-              <button type="button" class="btn btn--outline" (click)="startEdit(topping)">EDIT</button>
-              <button type="button" class="btn btn--danger" (click)="remove(topping)">DELETE</button>
-            </td>
-          </tr>
-        }
-      </tbody>
-    </table>
+    <div class="tc-catalog-table-wrap">
+      <table class="tc-catalog-table">
+        <thead>
+          <tr><th>Name</th><th>Price</th><th>Sort</th><th>Available</th><th></th></tr>
+        </thead>
+        <tbody>
+          @for (topping of toppings(); track topping.id) {
+            <tr>
+              <td>{{ topping.name }}</td>
+              <td>ETB {{ topping.additionalPrice | number: '1.0-2' }}</td>
+              <td>{{ topping.sortOrder }}</td>
+              <td>{{ topping.isAvailable ? 'Yes' : 'No' }}</td>
+              <td class="tc-catalog-table__actions">
+                <button type="button" class="btn btn--outline" (click)="startEdit(topping)">EDIT</button>
+                <button type="button" class="btn btn--danger" (click)="remove(topping)">DELETE</button>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
   }
 </section>

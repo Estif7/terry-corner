@@ -4,90 +4,108 @@
 .tc-admin-shell {
   min-height: 100vh;
   background: t.$color-surface-alt;
+  display: flex;
+  flex-direction: column;
+}
+
+// ---- Top Navbar (Matches Homepage Navbar) --------------------------------
+.tc-admin-header {
+  position: sticky;
+  top: 0;
+  z-index: t.$z-header;
+  background: rgba(13, 13, 13, 0.96);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: t.$color-text-inverse;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
 
   &__bar {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    background: t.$color-surface;
-    border-bottom: 1px solid t.$color-border;
-    padding: t.$space-3 t.$space-6;
+    justify-content: space-between;
+    padding: t.$space-2 t.$space-4;
+    max-width: 1280px;
+    margin: 0 auto;
+
+    @include m.from(md) {
+      padding: t.$space-3 t.$space-6;
+    }
   }
 
   &__brand {
     display: flex;
     align-items: center;
     gap: t.$space-3;
+    text-decoration: none;
+    color: t.$color-text-inverse;
   }
 
-  &__title {
-    font-weight: 800;
-    font-size: 1rem;
-    letter-spacing: 0.05em;
-    color: t.$color-text;
+  &__logo-img {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    object-fit: contain;
+    flex-shrink: 0;
+    transition: transform t.$duration-fast;
+
+    &:hover {
+      transform: scale(1.05);
+    }
+
+    @include m.from(md) {
+      width: 46px;
+      height: 46px;
+    }
+  }
+
+  &__brand-name {
+    font-family: t.$font-display;
+    font-size: 1.15rem;
+    letter-spacing: 0.03em;
+    line-height: 1.1;
+    color: t.$color-text-inverse;
 
     span {
       color: t.$color-accent;
     }
-  }
 
-  &__actions {
-    display: flex;
-    align-items: center;
-    gap: t.$space-3;
-  }
-
-  &__link-btn,
-  &__logout-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: t.$space-2;
-    padding: t.$space-2 t.$space-4;
-    border-radius: t.$radius-md;
-    font-size: 0.85rem;
-    font-weight: 600;
-    text-decoration: none;
-    cursor: pointer;
-    background: transparent;
-    border: 1px solid t.$color-border;
-    color: t.$color-text;
-    transition: all 0.2s ease;
-
-    &:hover {
-      background: t.$color-surface-alt;
-      border-color: t.$color-text-muted;
+    @include m.from(md) {
+      font-size: 1.25rem;
     }
   }
 
-  &__logout-btn {
-    color: #b91c1c;
-    border-color: #fca5a5;
-
-    &:hover {
-      background: #fee2e2;
-      border-color: #f87171;
-    }
+  &__badge {
+    background: t.$color-accent;
+    color: t.$color-primary;
+    font-size: 0.65rem;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    padding: 2px 7px;
+    border-radius: t.$radius-pill;
+    display: inline-block;
+    align-self: center;
   }
 
+  // Desktop Navbar Links
   &__nav {
-    display: flex;
-    gap: t.$space-2;
-    overflow-x: auto;
-    background: t.$color-primary;
-    padding: 0 t.$space-6;
+    display: none;
+    gap: t.$space-4;
 
-    a {
-      @include m.touch-target;
+    @include m.from(md) {
       display: flex;
       align-items: center;
-      padding: 0 t.$space-4;
+    }
+
+    a {
+      font-weight: 600;
+      font-size: t.$fs-sm;
       color: rgba(255, 255, 255, 0.75);
-      font-weight: 700;
-      font-size: 0.9rem;
-      white-space: nowrap;
       text-decoration: none;
-      border-bottom: 3px solid transparent;
-      transition: all 0.15s ease;
+      padding: 6px 0;
+      border-bottom: 2px solid transparent;
+      transition: all t.$duration-fast t.$ease-out;
+      white-space: nowrap;
 
       &:hover,
       &.is-active {
@@ -97,7 +115,140 @@
     }
   }
 
-  &__main {
-    padding: t.$space-4 0 t.$space-12;
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: t.$space-3;
+  }
+
+  // View Live Site button: Desktop ONLY, removed on mobile
+  &__live-btn {
+    display: none;
+    align-items: center;
+    gap: t.$space-2;
+    padding: t.$space-2 t.$space-3;
+    font-size: t.$fs-xs;
+    border-color: rgba(255, 255, 255, 0.25);
+    color: t.$color-text-inverse;
+    text-decoration: none;
+    white-space: nowrap;
+
+    &:hover {
+      border-color: t.$color-accent;
+      color: t.$color-accent;
+    }
+
+    @include m.from(md) {
+      display: inline-flex;
+    }
+  }
+
+  // Sign Out button: Replaces Explore Menu button
+  &__signout-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: t.$space-2;
+    padding: t.$space-2 t.$space-3;
+    font-size: t.$fs-xs;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    white-space: nowrap;
+    border: none;
+    cursor: pointer;
+
+    @include m.from(md) {
+      padding: t.$space-2 t.$space-4;
+    }
+  }
+
+  &__signout-icon {
+    flex-shrink: 0;
+  }
+}
+
+// ---- Main Content Container ----------------------------------------------
+.tc-admin-shell__main {
+  flex: 1;
+  padding: t.$space-4 t.$space-3 84px; // 84px bottom clearance for mobile bottom navbar
+  max-width: 1280px;
+  width: 100%;
+  margin: 0 auto;
+
+  @include m.from(md) {
+    padding: t.$space-6 t.$space-6 48px;
+  }
+}
+
+// ---- Mobile Bottom Navigation Bar (Mobile Only) --------------------------
+.tc-admin-bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 64px;
+  background: rgba(13, 13, 13, 0.96);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  z-index: t.$z-header;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.35);
+
+  @include m.from(md) {
+    display: none; // Hidden on desktop
+  }
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    height: 100%;
+    color: rgba(255, 255, 255, 0.6);
+    text-decoration: none;
+    transition: all t.$duration-fast t.$ease-out;
+    padding: 6px 0;
+    gap: 3px;
+    position: relative;
+
+    &:hover {
+      color: t.$color-text-inverse;
+    }
+
+    &.is-active {
+      color: t.$color-accent;
+
+      .tc-admin-bottom-nav__icon-wrap {
+        transform: translateY(-2px);
+      }
+
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: 4px;
+        width: 16px;
+        height: 3px;
+        background: t.$color-accent;
+        border-radius: t.$radius-pill;
+      }
+    }
+  }
+
+  &__icon-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform t.$duration-fast t.$ease-out;
+  }
+
+  &__label {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
   }
 }

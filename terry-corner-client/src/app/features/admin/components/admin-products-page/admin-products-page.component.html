@@ -92,24 +92,26 @@
   @if (loading()) {
     <p>Loading…</p>
   } @else {
-    <table class="tc-catalog-table">
-      <thead>
-        <tr><th>Name</th><th>Category</th><th>Price</th><th>Available</th><th></th></tr>
-      </thead>
-      <tbody>
-        @for (product of products(); track product.id) {
-          <tr>
-            <td>{{ product.name }}</td>
-            <td>{{ product.categoryName }}</td>
-            <td>ETB {{ product.price | number: '1.0-2' }}</td>
-            <td>{{ product.isAvailable ? 'Yes' : 'Sold Out' }}</td>
-            <td class="tc-catalog-table__actions">
-              <button type="button" class="btn btn--outline" (click)="startEdit(product)">EDIT</button>
-              <button type="button" class="btn btn--danger" (click)="remove(product)">DELETE</button>
-            </td>
-          </tr>
-        }
-      </tbody>
-    </table>
+    <div class="tc-catalog-table-wrap">
+      <table class="tc-catalog-table">
+        <thead>
+          <tr><th>Name</th><th>Category</th><th>Price</th><th>Available</th><th></th></tr>
+        </thead>
+        <tbody>
+          @for (product of products(); track product.id) {
+            <tr>
+              <td>{{ product.name }}</td>
+              <td>{{ product.categoryName }}</td>
+              <td>ETB {{ product.price | number: '1.0-2' }}</td>
+              <td>{{ product.isAvailable ? 'Yes' : 'Sold Out' }}</td>
+              <td class="tc-catalog-table__actions">
+                <button type="button" class="btn btn--outline" (click)="startEdit(product)">EDIT</button>
+                <button type="button" class="btn btn--danger" (click)="remove(product)">DELETE</button>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
   }
 </section>

@@ -60,73 +60,75 @@
   @if (loading()) {
     <p>Loading…</p>
   } @else {
-    <table class="tc-catalog-table">
-      <thead>
-        <tr><th></th><th>Name</th><th>Email</th><th>Role</th><th>Joined</th><th>Status</th><th></th></tr>
-      </thead>
-      <tbody>
-        @for (user of users(); track user.id) {
-          <tr>
-            <td>
-              @if (previewUrls()[user.id]) {
-                <img class="tc-users-admin__avatar" [src]="previewUrls()[user.id]" [alt]="user.fullName" />
-              } @else {
-                <span class="tc-users-admin__avatar tc-users-admin__avatar--placeholder">{{ user.fullName.charAt(0) }}</span>
-              }
-            </td>
-            @if (editingId() === user.id) {
-              <td colspan="4">
-                <form class="tc-users-admin__edit-form" [formGroup]="form" (ngSubmit)="save(user)">
-                  <input type="text" formControlName="fullName" placeholder="Full name" />
-                  <input type="email" formControlName="email" placeholder="Email" />
-                  <input type="tel" formControlName="phoneNumber" placeholder="Phone" />
-                </form>
-              </td>
-            } @else {
-              <td>{{ user.fullName }}</td>
-              <td>{{ user.email }}</td>
+    <div class="tc-catalog-table-wrap">
+      <table class="tc-catalog-table">
+        <thead>
+          <tr><th></th><th>Name</th><th>Email</th><th>Role</th><th>Joined</th><th>Status</th><th></th></tr>
+        </thead>
+        <tbody>
+          @for (user of users(); track user.id) {
+            <tr>
               <td>
-                @if (user.id !== currentUserId) {
-                  <select
-                    [value]="user.roles[0]"
-                    (change)="changeRole(user, $any($event.target).value)"
-                    [disabled]="busyId() === user.id"
-                  >
-                    <option value="Customer">Customer</option>
-                    <option value="Manager">Manager</option>
-                    <option value="Admin">Admin</option>
-                  </select>
+                @if (previewUrls()[user.id]) {
+                  <img class="tc-users-admin__avatar" [src]="previewUrls()[user.id]" [alt]="user.fullName" />
                 } @else {
-                  {{ user.roles.join(', ') }} (you)
+                  <span class="tc-users-admin__avatar tc-users-admin__avatar--placeholder">{{ user.fullName.charAt(0) }}</span>
                 }
               </td>
-              <td>{{ user.createdAtUtc ? (user.createdAtUtc | date: 'mediumDate') : '—' }}</td>
-            }
-            <td>{{ user.isLockedOut ? 'Restricted' : 'Active' }}</td>
-            <td class="tc-catalog-table__actions">
               @if (editingId() === user.id) {
-                <button type="button" class="btn btn--primary" [disabled]="saving()" (click)="save(user)">
-                  {{ saving() ? 'SAVING…' : 'SAVE' }}
-                </button>
-                <button type="button" class="btn btn--outline" (click)="cancel()">CANCEL</button>
+                <td colspan="4">
+                  <form class="tc-users-admin__edit-form" [formGroup]="form" (ngSubmit)="save(user)">
+                    <input type="text" formControlName="fullName" placeholder="Full name" />
+                    <input type="email" formControlName="email" placeholder="Email" />
+                    <input type="tel" formControlName="phoneNumber" placeholder="Phone" />
+                  </form>
+                </td>
               } @else {
-                <button type="button" class="btn btn--outline" (click)="startEdit(user)">EDIT</button>
-                @if (user.id !== currentUserId) {
-                  @if (user.isLockedOut) {
-                    <button type="button" class="btn btn--primary" [disabled]="busyId() === user.id" (click)="unrestrict(user)">
-                      UNRESTRICT
-                    </button>
+                <td>{{ user.fullName }}</td>
+                <td>{{ user.email }}</td>
+                <td>
+                  @if (user.id !== currentUserId) {
+                    <select
+                      [value]="user.roles[0]"
+                      (change)="changeRole(user, $any($event.target).value)"
+                      [disabled]="busyId() === user.id"
+                    >
+                      <option value="Customer">Customer</option>
+                      <option value="Manager">Manager</option>
+                      <option value="Admin">Admin</option>
+                    </select>
                   } @else {
-                    <button type="button" class="btn btn--danger" [disabled]="busyId() === user.id" (click)="restrict(user)">
-                      RESTRICT
-                    </button>
+                    {{ user.roles.join(', ') }} (you)
+                  }
+                </td>
+                <td>{{ user.createdAtUtc ? (user.createdAtUtc | date: 'mediumDate') : '—' }}</td>
+              }
+              <td>{{ user.isLockedOut ? 'Restricted' : 'Active' }}</td>
+              <td class="tc-catalog-table__actions">
+                @if (editingId() === user.id) {
+                  <button type="button" class="btn btn--primary" [disabled]="saving()" (click)="save(user)">
+                    {{ saving() ? 'SAVING…' : 'SAVE' }}
+                  </button>
+                  <button type="button" class="btn btn--outline" (click)="cancel()">CANCEL</button>
+                } @else {
+                  <button type="button" class="btn btn--outline" (click)="startEdit(user)">EDIT</button>
+                  @if (user.id !== currentUserId) {
+                    @if (user.isLockedOut) {
+                      <button type="button" class="btn btn--primary" [disabled]="busyId() === user.id" (click)="unrestrict(user)">
+                        UNRESTRICT
+                      </button>
+                    } @else {
+                      <button type="button" class="btn btn--danger" [disabled]="busyId() === user.id" (click)="restrict(user)">
+                        RESTRICT
+                      </button>
+                    }
                   }
                 }
-              }
-            </td>
-          </tr>
-        }
-      </tbody>
-    </table>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
   }
 </section>

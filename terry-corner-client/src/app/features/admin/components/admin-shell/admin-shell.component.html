@@ -1,35 +1,111 @@
 <div class="tc-admin-shell">
-  <header class="tc-admin-shell__bar">
-    <div class="tc-admin-shell__brand">
-      <img src="/logo.png" alt="Terry Corner Logo" class="tc-admin-shell__logo" width="34" height="34" />
-      <span class="tc-admin-shell__title">TERRY <span>ADMIN</span></span>
-    </div>
-
-    <div class="tc-admin-shell__actions">
-      <a routerLink="/menu" target="_blank" class="tc-admin-shell__link-btn">
-        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
-          <polyline points="15 3 21 3 21 9"/>
-          <line x1="10" y1="14" x2="21" y2="3"/>
-        </svg>
-        <span>View Live Site</span>
+  <!-- Top Navbar: Matches homepage layout with logo & title, Sign Out replaces Explore Menu, View Live Site desktop only -->
+  <header class="tc-admin-header">
+    <div class="tc-admin-header__bar">
+      <a routerLink="/" class="tc-admin-header__brand" aria-label="Terry Corner Home">
+        <img src="/logo.png" alt="Terry Corner" class="tc-admin-header__logo-img" width="46" height="46" />
+        <span class="tc-admin-header__brand-name">TERRY <span>CORNER</span></span>
+        <span class="tc-admin-header__badge">ADMIN</span>
       </a>
 
-      <button type="button" class="tc-admin-shell__logout-btn" (click)="logout()">
-        Sign Out
-      </button>
+      <!-- Desktop-only navigation tabs -->
+      <nav class="tc-admin-header__nav" aria-label="Desktop Admin Navigation">
+        <a routerLink="/admin/products" routerLinkActive="is-active">Meals &amp; Prices</a>
+        <a routerLink="/admin/categories" routerLinkActive="is-active">Categories</a>
+        <a routerLink="/admin/toppings" routerLinkActive="is-active">Toppings &amp; Extras</a>
+        <a routerLink="/admin/promotions" routerLinkActive="is-active">Deals</a>
+        <a routerLink="/admin/settings" routerLinkActive="is-active">Database Setup</a>
+      </nav>
+
+      <div class="tc-admin-header__actions">
+        <!-- View Live Site: Visible on Desktop only, hidden on Mobile -->
+        <a routerLink="/" target="_blank" class="btn btn--outline tc-admin-header__live-btn" aria-label="View live website">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+            <polyline points="15 3 21 3 21 9"/>
+            <line x1="10" y1="14" x2="21" y2="3"/>
+          </svg>
+          <span>View Live Site</span>
+        </a>
+
+        <!-- Sign Out Button: Replaces Explore Menu -->
+        <button type="button" class="btn btn--primary tc-admin-header__signout-btn" (click)="logout()" aria-label="Sign out of admin">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tc-admin-header__signout-icon">
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+            <polyline points="16 17 21 12 16 7"/>
+            <line x1="21" y1="12" x2="9" y2="12"/>
+          </svg>
+          <span>SIGN OUT</span>
+        </button>
+      </div>
     </div>
   </header>
 
-  <nav class="tc-admin-shell__nav" aria-label="Admin sections">
-    <a routerLink="/admin/products" routerLinkActive="is-active">Meals &amp; Prices</a>
-    <a routerLink="/admin/categories" routerLinkActive="is-active">Categories</a>
-    <a routerLink="/admin/toppings" routerLinkActive="is-active">Toppings &amp; Extras</a>
-    <a routerLink="/admin/promotions" routerLinkActive="is-active">Deals</a>
-    <a routerLink="/admin/settings" routerLinkActive="is-active">Database Setup</a>
-  </nav>
-
+  <!-- Main Content Container with safe mobile bottom padding -->
   <main class="tc-admin-shell__main">
     <router-outlet></router-outlet>
   </main>
+
+  <!-- Mobile Bottom Navigation Bar (Visible on Mobile only, hidden on Desktop) -->
+  <nav class="tc-admin-bottom-nav" aria-label="Mobile Admin Navigation">
+    <!-- Meals & Prices -->
+    <a routerLink="/admin/products" routerLinkActive="is-active" class="tc-admin-bottom-nav__item">
+      <div class="tc-admin-bottom-nav__icon-wrap">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 11h18"/>
+          <path d="M5 11V8a7 7 0 0 1 14 0v3"/>
+          <rect x="3" y="14" width="18" height="4" rx="2"/>
+        </svg>
+      </div>
+      <span class="tc-admin-bottom-nav__label">Meals</span>
+    </a>
+
+    <!-- Categories -->
+    <a routerLink="/admin/categories" routerLinkActive="is-active" class="tc-admin-bottom-nav__item">
+      <div class="tc-admin-bottom-nav__icon-wrap">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="3" width="7" height="7"/>
+          <rect x="14" y="3" width="7" height="7"/>
+          <rect x="14" y="14" width="7" height="7"/>
+          <rect x="3" y="14" width="7" height="7"/>
+        </svg>
+      </div>
+      <span class="tc-admin-bottom-nav__label">Categories</span>
+    </a>
+
+    <!-- Toppings & Extras -->
+    <a routerLink="/admin/toppings" routerLinkActive="is-active" class="tc-admin-bottom-nav__item">
+      <div class="tc-admin-bottom-nav__icon-wrap">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/>
+          <line x1="12" y1="8" x2="12" y2="16"/>
+          <line x1="8" y1="12" x2="16" y2="12"/>
+        </svg>
+      </div>
+      <span class="tc-admin-bottom-nav__label">Extras</span>
+    </a>
+
+    <!-- Deals -->
+    <a routerLink="/admin/promotions" routerLinkActive="is-active" class="tc-admin-bottom-nav__item">
+      <div class="tc-admin-bottom-nav__icon-wrap">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/>
+          <line x1="7" y1="7" x2="7.01" y2="7"/>
+        </svg>
+      </div>
+      <span class="tc-admin-bottom-nav__label">Deals</span>
+    </a>
+
+    <!-- Database Setup -->
+    <a routerLink="/admin/settings" routerLinkActive="is-active" class="tc-admin-bottom-nav__item">
+      <div class="tc-admin-bottom-nav__icon-wrap">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <ellipse cx="12" cy="5" rx="9" ry="3"/>
+          <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/>
+          <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/>
+        </svg>
+      </div>
+      <span class="tc-admin-bottom-nav__label">Database</span>
+    </a>
+  </nav>
 </div>

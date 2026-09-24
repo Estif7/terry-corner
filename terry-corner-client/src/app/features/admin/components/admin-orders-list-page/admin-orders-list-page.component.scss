@@ -29,13 +29,21 @@
   }
 }
 
-.tc-orders-table {
+.tc-orders-table-wrap {
   width: 100%;
-  border-collapse: collapse;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
   background: t.$color-surface;
   border-radius: t.$radius-md;
-  overflow: hidden;
   box-shadow: t.$shadow-sm;
+  border: 1px solid t.$color-border;
+}
+
+.tc-orders-table {
+  width: 100%;
+  min-width: 600px;
+  border-collapse: collapse;
+  background: t.$color-surface;
 
   th, td {
     text-align: left;

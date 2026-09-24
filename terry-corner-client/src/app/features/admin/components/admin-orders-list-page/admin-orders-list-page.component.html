@@ -23,29 +23,31 @@
   } @else if (orders().length === 0) {
     <p class="tc-orders-admin__empty">No orders match.</p>
   } @else {
-    <table class="tc-orders-table">
-      <thead>
-        <tr>
-          <th>Order</th>
-          <th>Customer</th>
-          <th>Status</th>
-          <th>Payment</th>
-          <th>Total</th>
-          <th>Placed</th>
-        </tr>
-      </thead>
-      <tbody>
-        @for (order of orders(); track order.id) {
-          <tr (click)="openOrder(order)">
-            <td>{{ order.orderNumber }}</td>
-            <td>{{ order.customerName }}</td>
-            <td>{{ order.status }}</td>
-            <td>{{ order.paymentStatus }}</td>
-            <td>ETB {{ order.total | number: '1.0-2' }}</td>
-            <td>{{ order.createdAtUtc | date: 'short' }}</td>
+    <div class="tc-orders-table-wrap">
+      <table class="tc-orders-table">
+        <thead>
+          <tr>
+            <th>Order</th>
+            <th>Customer</th>
+            <th>Status</th>
+            <th>Payment</th>
+            <th>Total</th>
+            <th>Placed</th>
           </tr>
-        }
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          @for (order of orders(); track order.id) {
+            <tr (click)="openOrder(order)">
+              <td>{{ order.orderNumber }}</td>
+              <td>{{ order.customerName }}</td>
+              <td>{{ order.status }}</td>
+              <td>{{ order.paymentStatus }}</td>
+              <td>ETB {{ order.total | number: '1.0-2' }}</td>
+              <td>{{ order.createdAtUtc | date: 'short' }}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
   }
 </section>

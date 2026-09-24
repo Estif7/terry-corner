@@ -2,33 +2,74 @@
 @use 'mixins' as m;
 
 .tc-catalog-admin {
-  max-width: 1000px;
+  max-width: 1100px;
   margin: 0 auto;
-  padding: t.$space-8 t.$space-4 t.$space-16;
+  padding: t.$space-4 t.$space-3 t.$space-8;
+
+  @include m.from(md) {
+    padding: t.$space-6 t.$space-6 t.$space-12;
+  }
 
   &__header {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    flex-wrap: wrap;
+    gap: t.$space-3;
     margin-bottom: t.$space-6;
+
+    h1 {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: t.$color-text;
+      margin: 0;
+
+      @include m.from(md) {
+        font-size: 1.75rem;
+      }
+    }
+
+    .btn {
+      font-size: t.$fs-xs;
+      font-weight: 700;
+      padding: t.$space-2 t.$space-4;
+    }
   }
 }
 
 .tc-catalog-form {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: t.$space-4;
+  grid-template-columns: 1fr;
+  gap: t.$space-3;
   background: t.$color-surface;
-  padding: t.$space-6;
-  border-radius: t.$radius-md;
+  padding: t.$space-4;
+  border-radius: t.$radius-lg;
+  border: 1px solid t.$color-border;
   box-shadow: t.$shadow-sm;
-  margin-bottom: t.$space-8;
+  margin-bottom: t.$space-6;
   align-items: end;
+
+  @include m.from(sm) {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    padding: t.$space-6;
+    gap: t.$space-4;
+  }
 
   &__actions {
     display: flex;
+    flex-wrap: wrap;
     gap: t.$space-3;
     grid-column: 1 / -1;
+    margin-top: t.$space-2;
+
+    .btn {
+      flex: 1;
+      justify-content: center;
+
+      @include m.from(sm) {
+        flex: initial;
+      }
+    }
   }
 
   &__full-width {
@@ -36,37 +77,61 @@
   }
 }
 
+.tc-catalog-table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  background: t.$color-surface;
+  border-radius: t.$radius-lg;
+  border: 1px solid t.$color-border;
+  box-shadow: t.$shadow-sm;
+  margin-bottom: t.$space-6;
+}
+
 .tc-catalog-table {
   width: 100%;
+  min-width: 540px; // Ensures table contents don't squeeze awkwardly on phones
   border-collapse: collapse;
-  background: t.$color-surface;
-  border-radius: t.$radius-md;
-  overflow: hidden;
-  box-shadow: t.$shadow-sm;
 
   th, td {
     text-align: left;
     padding: t.$space-3 t.$space-4;
     font-size: t.$fs-sm;
+    color: t.$color-text;
   }
 
   thead {
     background: t.$color-surface-alt;
+    border-bottom: 1px solid t.$color-border;
 
-    th { font-weight: 700; text-transform: uppercase; font-size: t.$fs-xs; letter-spacing: 0.04em; }
+    th {
+      font-weight: 700;
+      text-transform: uppercase;
+      font-size: t.$fs-xs;
+      letter-spacing: 0.04em;
+      color: t.$color-text-muted;
+    }
   }
 
   tbody tr {
     border-top: 1px solid t.$color-border;
+    transition: background 0.15s ease;
+
+    &:hover {
+      background: rgba(0, 0, 0, 0.02);
+    }
   }
 
   &__actions {
     display: flex;
+    align-items: center;
     gap: t.$space-2;
+    white-space: nowrap;
 
     .btn {
-      padding: t.$space-1 t.$space-3;
+      padding: 4px 10px;
       font-size: t.$fs-xs;
+      font-weight: 600;
     }
   }
 }
@@ -78,16 +143,26 @@
   font-weight: 600;
   font-size: t.$fs-sm;
 
+  label, span {
+    color: t.$color-text;
+  }
+
   input, select, textarea {
     @include m.touch-target;
-    padding: t.$space-3;
-    border-radius: t.$radius-sm;
-    border: 2px solid t.$color-border;
+    width: 100%;
+    padding: t.$space-3 t.$space-4;
+    border-radius: t.$radius-md;
+    border: 1px solid t.$color-border;
     font-family: t.$font-body;
     font-weight: 400;
     font-size: t.$fs-base;
+    background: t.$color-surface;
+    color: t.$color-text;
 
-    &:focus { border-color: t.$color-primary; }
+    &:focus {
+      outline: none;
+      border-color: t.$color-accent;
+    }
   }
 
   &__error {
@@ -102,6 +177,7 @@
   @include m.touch-target;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: t.$space-2;
   padding: t.$space-3 t.$space-4;
   border: 2px dashed t.$color-border;
@@ -111,13 +187,14 @@
   font-size: t.$fs-sm;
   color: t.$color-text-muted;
   white-space: nowrap;
+  transition: all 0.2s ease;
 
   input[type='file'] {
     display: none;
   }
 
   &:hover {
-    border-color: t.$color-primary;
+    border-color: t.$color-accent;
     color: t.$color-primary;
   }
 }
@@ -129,19 +206,20 @@
   flex-wrap: wrap;
 
   &__preview {
-    width: 56px;
-    height: 56px;
+    width: 52px;
+    height: 52px;
     border-radius: t.$radius-sm;
     object-fit: cover;
     flex-shrink: 0;
+    border: 1px solid t.$color-border;
   }
 
   &__url {
     flex: 1;
-    min-width: 200px;
+    min-width: 180px;
     padding: t.$space-3;
     border-radius: t.$radius-sm;
-    border: 2px solid t.$color-border;
+    border: 1px solid t.$color-border;
     font-size: t.$fs-sm;
   }
 }
@@ -152,25 +230,33 @@
   gap: t.$space-2;
   font-weight: 600;
   font-size: t.$fs-sm;
+  color: t.$color-text;
+  cursor: pointer;
 
-  input { width: 20px; height: 20px; }
+  input {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+  }
 }
 
 .tc-topping-checklist {
   grid-column: 1 / -1;
   display: flex;
   flex-wrap: wrap;
-  gap: t.$space-3;
+  gap: t.$space-2;
 
   label {
     display: flex;
     align-items: center;
     gap: t.$space-2;
     font-size: t.$fs-sm;
-    font-weight: 400;
+    font-weight: 500;
     background: t.$color-surface-alt;
+    border: 1px solid t.$color-border;
     padding: t.$space-2 t.$space-3;
     border-radius: t.$radius-pill;
+    cursor: pointer;
   }
 }
 
@@ -183,11 +269,15 @@
 .tc-stat-card {
   background: t.$color-surface;
   border-radius: t.$radius-md;
-  padding: t.$space-6;
+  padding: t.$space-4;
   box-shadow: t.$shadow-sm;
   display: flex;
   flex-direction: column;
   gap: t.$space-2;
+
+  @include m.from(sm) {
+    padding: t.$space-6;
+  }
 
   &--accent {
     background: t.$color-accent;
@@ -207,7 +297,7 @@
 
 .tc-users-admin {
   &__stats {
-    margin-bottom: t.$space-8;
+    margin-bottom: t.$space-6;
   }
 
   &__avatar {
@@ -236,8 +326,9 @@
     input {
       padding: t.$space-2;
       border-radius: t.$radius-sm;
-      border: 2px solid t.$color-border;
+      border: 1px solid t.$color-border;
       font-size: t.$fs-sm;
     }
   }
 }
+

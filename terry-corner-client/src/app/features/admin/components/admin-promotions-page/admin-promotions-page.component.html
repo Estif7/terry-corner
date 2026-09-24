@@ -69,30 +69,32 @@
   @if (loading()) {
     <p>Loading…</p>
   } @else {
-    <table class="tc-catalog-table">
-      <thead>
-        <tr><th>Name</th><th>Discount</th><th>Window</th><th>Active</th><th></th></tr>
-      </thead>
-      <tbody>
-        @for (promotion of promotions(); track promotion.id) {
-          <tr>
-            <td>{{ promotion.name }}</td>
-            <td>
-              @if (promotion.discountType === 'Percentage') {
-                {{ promotion.discountValue }}%
-              } @else {
-                ETB {{ promotion.discountValue | number: '1.0-2' }} off
-              }
-            </td>
-            <td>{{ promotion.startDateUtc | date: 'short' }} – {{ promotion.endDateUtc | date: 'short' }}</td>
-            <td>{{ promotion.isActive ? 'Yes' : 'No' }}</td>
-            <td class="tc-catalog-table__actions">
-              <button type="button" class="btn btn--outline" (click)="startEdit(promotion)">EDIT</button>
-              <button type="button" class="btn btn--danger" (click)="remove(promotion)">DELETE</button>
-            </td>
-          </tr>
-        }
-      </tbody>
-    </table>
+    <div class="tc-catalog-table-wrap">
+      <table class="tc-catalog-table">
+        <thead>
+          <tr><th>Name</th><th>Discount</th><th>Window</th><th>Active</th><th></th></tr>
+        </thead>
+        <tbody>
+          @for (promotion of promotions(); track promotion.id) {
+            <tr>
+              <td>{{ promotion.name }}</td>
+              <td>
+                @if (promotion.discountType === 'Percentage') {
+                  {{ promotion.discountValue }}%
+                } @else {
+                  ETB {{ promotion.discountValue | number: '1.0-2' }} off
+                }
+              </td>
+              <td>{{ promotion.startDateUtc | date: 'short' }} – {{ promotion.endDateUtc | date: 'short' }}</td>
+              <td>{{ promotion.isActive ? 'Yes' : 'No' }}</td>
+              <td class="tc-catalog-table__actions">
+                <button type="button" class="btn btn--outline" (click)="startEdit(promotion)">EDIT</button>
+                <button type="button" class="btn btn--danger" (click)="remove(promotion)">DELETE</button>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
   }
 </section>
