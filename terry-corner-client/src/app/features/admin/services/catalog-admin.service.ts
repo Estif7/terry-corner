@@ -368,11 +368,14 @@ export class CatalogAdminService {
             is_available: payload.isAvailable,
             is_featured: payload.isFeatured,
             is_popular: payload.isPopular,
-            sortOrder: payload.sortOrder || 0,
+            sort_order: payload.sortOrder || 0,
           })
           .eq('id', id);
 
-        if (error) throw error;
+        if (error) {
+          this.toast.error(error.message);
+          throw error;
+        }
 
         // Sync toppings
         await this.client!.from('product_toppings').delete().eq('product_id', id);
