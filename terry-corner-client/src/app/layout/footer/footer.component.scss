@@ -185,5 +185,15 @@
     font-size: t.$fs-xs;
     text-align: center;
     color: rgba(255, 255, 255, 0.45);
+
+    a {
+      color: rgba(255, 255, 255, 0.45);
+      text-decoration: none;
+      transition: color 0.15s ease;
+
+      &:hover {
+        color: t.$color-accent;
+      }
+    }
   }
 }

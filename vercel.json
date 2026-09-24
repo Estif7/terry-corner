@@ -2,7 +2,6 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "buildCommand": "cd terry-corner-client && npm install && npm run build",
   "outputDirectory": "terry-corner-client/dist/terry-corner-client/browser",
-  "cleanUrls": true,
   "rewrites": [
     {
       "source": "/(.*)",
